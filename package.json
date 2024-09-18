@@ -18,18 +18,25 @@
         "csv-parser": "^3.0.0",
         "file-saver": "^2.0.5",
         "fs": "^0.0.1-security",
+        "fs-extra": "^11.2.0",
         "json2csv": "^6.0.0-alpha.2",
-        "next": "14.2.5",
+        "next": "^14.2.12",
         "react": "^18",
         "react-dom": "^18",
         "recoil": "^0.7.7"
     },
     "devDependencies": {
         "@types/file-saver": "^2.0.7",
+        "@types/fs-extra": "^11.0.4",
         "@types/json2csv": "^5.0.7",
         "@types/node": "^20",
         "@types/react": "^18",
         "@types/react-dom": "^18",
         "typescript": "^5"
+    },
+    "browser": {
+        "fs": false,
+        "os": false,
+        "path": false
     }
 }
