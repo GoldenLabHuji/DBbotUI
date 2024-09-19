@@ -3,19 +3,31 @@ import { styles } from "@/app/components/Message/Message.style";
 import { MessageProps } from "@/app/general/interfaces";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import PersonIcon from "@mui/icons-material/Person";
+import { colorCodes } from "@/app/general/resources";
 
-export default function Message({ message }: MessageProps) {
+export default function Message({ message, colors }: MessageProps) {
     const isBot = message?.sender === "bot";
+    const color =
+        colorCodes[(isBot ? colors[0] : colors[1]) as keyof typeof colorCodes];
 
     return (
         <Box sx={isBot ? styles.container.bot : styles.container.user}>
             <Box sx={isBot ? styles.box.bot : styles.box.user}>
-                <Avatar sx={isBot ? styles.avatar.bot : styles.avatar.user}>
+                <Avatar
+                    sx={{
+                        bgcolor: color.dark,
+                    }}
+                >
                     {isBot ? <SmartToyIcon /> : <PersonIcon />}
                 </Avatar>
                 <Paper
                     variant="outlined"
-                    sx={isBot ? styles.paper.bot : styles.paper.user}
+                    sx={[
+                        isBot ? styles.paper.bot : styles.paper.user,
+                        {
+                            bgcolor: color.light,
+                        },
+                    ]}
                 >
                     <Typography
                         sx={styles.text}

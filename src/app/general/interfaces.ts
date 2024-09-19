@@ -20,6 +20,7 @@ export interface ChatBoxProps extends ChatProps {}
 
 export interface MessageProps {
     message: Message;
+    colors: string[];
 }
 
 export interface Bot {
@@ -31,6 +32,8 @@ export interface Bot {
     operatorsData: BotOperatorData[];
     currentOperatorIndex: number;
     operatorsFiles: BorOperatorsFiles;
+    userColor: string;
+    botColor: string;
 }
 
 interface BorOperatorsFiles {
