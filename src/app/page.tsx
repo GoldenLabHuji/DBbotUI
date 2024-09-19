@@ -1,17 +1,11 @@
 import Chat from "@/app/components/Chat";
-import fs from "fs";
+import data from "@/app/data/db_bot.json";
+import { createOperatorsFiles } from "@/app/general/utils";
 
 export default function Home() {
-    // TODO: Read from the jSON file
+    const botData = JSON.parse(JSON.stringify(data));
 
-    // DELETE THIS:
-    
-    // const filePath = "/tmp/db_bot.json";
-    // console.log("exists", fs.existsSync(filePath as string));
-    // const data = fs.readFileSync(filePath as string, "utf-8");
-    // const botData = JSON.parse(JSON.stringify(data));
+    createOperatorsFiles(botData);
 
-    //END DELETE
-
-    return <Chat bot={JSON.parse(botData)} />;
+    return <Chat bot={botData} />;
 }

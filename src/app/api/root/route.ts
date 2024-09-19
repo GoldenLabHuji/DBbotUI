@@ -3,12 +3,14 @@ import { getOperator } from "@/app/general/utils";
 import { strOrNum } from "@/app/general/types";
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
+import * as path from "path";
 import csvParser from "csv-parser";
 
 export async function POST(request: NextRequest) {
     const req = await request.json();
     const attributes = req.queryParams as Attribute[];
-    const filePath = req.filePath as string;
+    const fileName = req.filePath as string;
+    const filePath = path.join(process.cwd(), "src/app/data", fileName);
     const rows = await filterCSV(filePath, attributes);
     return NextResponse.json(rows);
 }

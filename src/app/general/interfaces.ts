@@ -30,6 +30,12 @@ export interface Bot {
     filePath: string;
     operatorsData: BotOperatorData[];
     currentOperatorIndex: number;
+    operatorsFiles: BorOperatorsFiles;
+}
+
+interface BorOperatorsFiles {
+    functions: { [key: string]: string };
+    main: string;
 }
 
 interface BotData {
