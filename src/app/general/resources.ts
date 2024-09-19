@@ -205,3 +205,38 @@ export const emptyMessage: Message = {
     sender: "bot",
     typeOfQuestion: "functionParams",
 };
+
+export const colorCodes = {
+    blue: {
+        dark: "primary.main",
+        light: "primary.light",
+    },
+    green: {
+        dark: "#006400",
+        light: "#90EE90",
+    },
+    red: {
+        dark: "#800000",
+        light: "#FFB6C1",
+    },
+    yellow: {
+        dark: "#FFD700",
+        light: "#FFFFE0",
+    },
+    purple: {
+        dark: "secondary.main",
+        light: "secondary.light",
+    },
+    orange: {
+        dark: "#FF8C00",
+        light: "#FFA500",
+    },
+    black: {
+        dark: "#000000",
+        light: "#696969",
+    },
+    white: {
+        dark: "#D3D3D3",
+        light: "#FFFFFF",
+    },
+};
