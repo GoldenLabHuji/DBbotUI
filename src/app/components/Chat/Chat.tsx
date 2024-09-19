@@ -44,8 +44,7 @@ export default function Chat({ bot }: ChatProps) {
                 setLoading(true);
 
                 const pathArray = bot?.filePath.split("/");
-                const lastPathItem = pathArray.pop();
-                const path = "../" + lastPathItem;
+                const path = pathArray.pop();
 
                 const response = await fetch("/api/root", {
                     method: "POST",
