@@ -44,6 +44,7 @@ function isRowRequired(
 ): boolean {
     let isRequired: boolean = true;
     const duplicates = findDuplicates(attributes, "name");
+
     if (duplicates.length > 0) {
         const notDuplicatesAttributes = attributes.filter(
             (attribute) => !duplicates.includes(attribute)
@@ -51,10 +52,8 @@ function isRowRequired(
         const isRequiredNotDuplicates = notDuplicatesAttributes.every(
             (query, index) => operators[index](row[query.name], ...query.params)
         );
-
         const namesOfDuplicates = duplicates.map((query) => query.name);
         const duplicatesAttributes = [...new Set(namesOfDuplicates)];
-
         const duplicatesRequiredArray = duplicatesAttributes.map((name) => {
             const attributeOfTheName = attributes.filter(
                 (attribute) => attribute.name === name
@@ -64,7 +63,6 @@ function isRowRequired(
             );
             return isRowRequired;
         });
-
         const isRequiredDuplicates = duplicatesRequiredArray.every(
             (value) => value
         );

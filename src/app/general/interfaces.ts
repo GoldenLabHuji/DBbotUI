@@ -76,7 +76,7 @@ interface MessagesSlot {
     resultSlot?: string[];
 }
 export interface BotColumn {
-    id: string;
+    _id: string;
     dataType: DataType;
     displayName: string;
     rows: strOrNum[];
