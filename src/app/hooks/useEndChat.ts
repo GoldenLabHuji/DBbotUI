@@ -29,10 +29,10 @@ export default function useEndChat(bot: Bot) {
 
             const parameterColumnId = bot?._data.columns.find(
                 (col) => col.displayName === parameter
-            )?.id;
+            )?._id;
 
             const parameterColumn = bot?._data.columns.find(
-                (col) => col.id === parameterColumnId
+                (col) => col._id === parameterColumnId
             ) as BotColumn;
 
             const operatorsOfColumn = parameterColumn.operatorsArray;
@@ -50,8 +50,10 @@ export default function useEndChat(bot: Bot) {
                 else functionParams.push(Number(msg.text));
             });
 
+            const columnName = parameterColumn._id;
+
             const newAttribute: Attribute = {
-                name: parameter,
+                name: columnName,
                 operator: operator.id,
                 params: functionParams,
             };
