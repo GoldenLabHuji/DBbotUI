@@ -100,7 +100,7 @@ export default function Chat({ bot }: ChatProps) {
                                         <Message
                                             key={index}
                                             message={message}
-                                            colors={[bot?.botColor, bot?.userColor]}
+                                            colors={bot?.colors}
                                         />
                                     )
                                 )
