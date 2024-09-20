@@ -66,7 +66,7 @@ export default function useInput(
                     const currentHeader = bot?._data.headers[Number(input) - 1];
                     const currentParameter = bot?._data.columns.filter(
                         (col) => col.displayName === currentHeader
-                    )[0].id;
+                    )[0]._id;
                     currentParam.setState(currentParameter);
                     setBotMsg([
                         ...botMsg,
