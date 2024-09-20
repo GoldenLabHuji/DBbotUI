@@ -8,7 +8,9 @@ import { colorCodes } from "@/app/general/resources";
 export default function Message({ message, colors }: MessageProps) {
     const isBot = message?.sender === "bot";
     const color =
-        colorCodes[(isBot ? colors[0] : colors[1]) as keyof typeof colorCodes];
+        colorCodes[
+            (isBot ? colors.bot : colors.user) as keyof typeof colorCodes
+        ];
 
     return (
         <Box sx={isBot ? styles.container.bot : styles.container.user}>
