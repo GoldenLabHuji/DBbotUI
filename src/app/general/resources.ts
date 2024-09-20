@@ -43,7 +43,7 @@ export const botOperatorMessages = (
     currentParam: string
 ): Message[] => {
     const operators = bot?._data.columns.filter(
-        (col) => col.id === currentParam
+        (col) => col._id === currentParam
     )[0]?.operatorsArray;
 
     const optionsArray = operators.map(
@@ -101,7 +101,7 @@ export const botFunctionParamsMessages = (
     currentParam: string
 ): Message[] => {
     const operators = bot?._data.columns.filter(
-        (col) => col.id === currentParam
+        (col) => col._id === currentParam
     )[0]?.operatorsArray;
 
     const chosenOperator = operators[bot.currentOperatorIndex];
