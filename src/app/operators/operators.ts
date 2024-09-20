@@ -21,5 +21,6 @@ export const OPERATORS = {
     equalString: equalStringOperator,
 };
 
+import { WhichSaga } from "@/app/operators/WhichSaga";
 
-
+OPERATORS["WhichSaga" as keyof typeof OPERATORS] = WhichSaga;
