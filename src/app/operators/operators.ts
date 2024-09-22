@@ -1,4 +1,3 @@
-
 import {
     greaterOperator,
     lowerOperator,
@@ -7,7 +6,7 @@ import {
     startWithOperator,
     endWithOperator,
     containsOperator,
-    equalStringOperator,    
+    equalStringOperator,
 } from "@/app/operators";
 
 export const OPERATORS = {
@@ -20,7 +19,3 @@ export const OPERATORS = {
     contains: containsOperator,
     equalString: equalStringOperator,
 };
-
-import { WhichSaga } from "@/app/operators/WhichSaga";
-
-OPERATORS["WhichSaga" as keyof typeof OPERATORS] = WhichSaga;
