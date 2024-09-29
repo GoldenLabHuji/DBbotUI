@@ -1,3 +1,3 @@
-export function containsOperator(inputValue: string, compareValue: string) {
-    return inputValue.toLowerCase().includes(compareValue.toLowerCase());
+export function containsOperator(cell: string, value: string) {
+    return cell.toLowerCase().includes(value.toLowerCase());
 }
