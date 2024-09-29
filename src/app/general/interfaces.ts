@@ -1,4 +1,9 @@
-import { sender, typeOfQuestion, strOrNum } from "@/app/general/types";
+import {
+    sender,
+    typeOfQuestion,
+    strOrNum,
+    DataType,
+} from "@/app/general/types";
 
 export interface Message {
     id: number;
@@ -96,36 +101,19 @@ interface BotOperatorParams {
     name: string;
 }
 
-export enum NumericOperator {
-    Greater = "Greater",
-    Lower = "Lower",
-    Equal = "Equal",
-    Range = "Range",
-}
-
-export enum StringOperator {
-    StartWith = "StartWith",
-    SoundLike = "SoundLike",
-}
-
-export enum DataType {
-    Numeric = "numeric",
-    String = "string",
-}
-
 export interface Attribute {
     name: string;
     params: strOrNum[];
     operator: string;
 }
 
-export interface QueryWords {
-    [key: string]: Attribute;
+interface generalObject<T> {
+    [key: string]: T;
 }
 
-export interface WordData {
-    [key: string]: strOrNum | null;
-}
+export interface QueryWords extends generalObject<Attribute> {}
+
+export interface WordData extends generalObject<strOrNum | null> {}
 
 export interface HeaderProps {
     text: string;

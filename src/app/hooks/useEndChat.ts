@@ -45,9 +45,9 @@ export default function useEndChat(bot: Bot) {
 
             const functionParams: strOrNum[] = [];
             functionParamsMessages.forEach((msg) => {
-                if (parameterDataType === "string")
-                    functionParams.push(msg.text);
-                else functionParams.push(Number(msg.text));
+                if (parameterDataType === "numeric")
+                    functionParams.push(Number(msg.text));
+                else functionParams.push(msg.text);
             });
 
             const columnName = parameterColumn._id;
