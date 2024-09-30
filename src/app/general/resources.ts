@@ -172,7 +172,7 @@ ${bot?._messages.customMessages.continueMessage}`,
     ];
 };
 
-export const resultMsg = (bot: Bot): Message[] => {
+export const resultMsg = (bot: Bot, noResults: boolean): Message[] => {
     const resultSlot = bot?._messages?.slots.resultSlot ?? [];
     const resultSlotArray = resultSlot.map((msg, index) =>
         convertTextToMessage(
@@ -185,7 +185,9 @@ export const resultMsg = (bot: Bot): Message[] => {
         ...resultSlotArray,
         {
             id: 0,
-            text: bot?._messages?.customMessages.resultMessage,
+            text: noResults
+                ? bot?._messages?.customMessages.resultMessage
+                : "No results found",
             sender: "bot" as sender,
             typeOfQuestion: "result" as typeOfQuestion,
         },

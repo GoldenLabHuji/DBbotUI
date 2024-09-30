@@ -130,3 +130,10 @@ export interface WordData {
 export interface HeaderProps {
     text: string;
 }
+
+export interface AlertDialogProps {
+    title: string;
+    content: string;
+    open: boolean;
+    setOpen: (open: boolean) => void;
+}
