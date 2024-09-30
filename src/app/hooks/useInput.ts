@@ -28,7 +28,6 @@ export default function useInput(
 ) {
     const [botMsg, setBotMsg] = useState<Message[]>(botMessages(bot));
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
-
     const handleUserInput = (
         input: string,
         setIsEndChat: Dispatch<SetStateAction<boolean>>
