@@ -119,7 +119,7 @@ export interface HeaderProps {
     text: string;
 }
 
-export interface AlertDialogProps {
+export interface DialogProps {
     title: string;
     content: string;
     open: boolean;

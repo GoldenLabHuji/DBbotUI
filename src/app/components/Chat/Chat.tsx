@@ -18,7 +18,7 @@ import { resultMsg } from "@/app/general/resources";
 import CSVButton from "@/app/components/CSVButton";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
-import AlertDialog from "@/app/components/AlertDialog";
+import Dialog from "@/app/components/Dialog";
 
 export default function Chat({ bot }: ChatProps) {
     const [messagesSection, setMessagesSection] =
@@ -122,7 +122,7 @@ export default function Chat({ bot }: ChatProps) {
                     {isResult && queryWords.length > 0 && (
                         <CSVButton queryWords={queryWords} />
                     )}
-                    <AlertDialog
+                    <Dialog
                         open={openAlert}
                         setOpen={setOpenAlert}
                         title="No results found"

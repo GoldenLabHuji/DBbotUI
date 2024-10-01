@@ -1,22 +1,22 @@
 "use client";
-import { AlertDialogProps } from "@/app/general/interfaces";
+import { DialogProps } from "@/app/general/interfaces";
 import {
     Button,
-    Dialog,
+    Dialog as MuiDialog,
     DialogActions,
     DialogContent,
     DialogContentText,
     DialogTitle,
 } from "@mui/material";
 
-export default function AlertDialog({
+export default function Dialog({
     title,
     content,
     open,
     setOpen,
-}: AlertDialogProps) {
+}: DialogProps) {
     return (
-        <Dialog open={open} onClose={() => setOpen(false)}>
+        <MuiDialog open={open} onClose={() => setOpen(false)}>
             <DialogTitle>{title}</DialogTitle>
             <DialogContent>
                 <DialogContentText>{content}</DialogContentText>
@@ -26,6 +26,6 @@ export default function AlertDialog({
                     Close
                 </Button>
             </DialogActions>
-        </Dialog>
+        </MuiDialog>
     );
 }
