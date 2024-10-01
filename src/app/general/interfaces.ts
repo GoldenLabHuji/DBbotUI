@@ -40,7 +40,7 @@ export interface Bot {
     colors: Colors;
 }
 
-interface Colors {
+export interface Colors {
     bot: string;
     user: string;
 }

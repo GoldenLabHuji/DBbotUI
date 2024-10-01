@@ -16,13 +16,19 @@ export default function Message({ message, colors }: MessageProps) {
         <Box sx={isBot ? styles.container.bot : styles.container.user}>
             <Box sx={isBot ? styles.box.bot : styles.box.user}>
                 <Avatar
+                    data-testid="Avatar"
                     sx={{
                         bgcolor: color.dark,
                     }}
                 >
-                    {isBot ? <SmartToyIcon /> : <PersonIcon />}
+                    {isBot ? (
+                        <SmartToyIcon data-testid="SmartToyIcon" />
+                    ) : (
+                        <PersonIcon data-testid="PersonIcon" />
+                    )}
                 </Avatar>
                 <Paper
+                    data-testid="Paper"
                     variant="outlined"
                     sx={[
                         isBot ? styles.paper.bot : styles.paper.user,
