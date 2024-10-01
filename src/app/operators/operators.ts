@@ -7,6 +7,8 @@ import {
     endWithOperator,
     containsOperator,
     equalStringOperator,
+    chooseOneOperator,
+    chooseMultipleOperator,
 } from "@/app/operators";
 
 export const OPERATORS = {
@@ -18,4 +20,6 @@ export const OPERATORS = {
     endWith: endWithOperator,
     contains: containsOperator,
     equalString: equalStringOperator,
+    chooseOne: chooseOneOperator,
+    chooseMultiple: chooseMultipleOperator,
 };

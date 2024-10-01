@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { Message } from "@/app/general/interfaces";
 
+export type DataType = "string" | "numeric" | "factor";
 export type sender = "bot" | "user";
 export type typeOfQuestion =
     | "parameter"
