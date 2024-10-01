@@ -1,3 +1,3 @@
-export function greaterOperator(inputValue: number, compareValue: number) {
-    return inputValue >= compareValue;
+export function greaterOperator(cell: number, value: number) {
+    return cell >= value;
 }

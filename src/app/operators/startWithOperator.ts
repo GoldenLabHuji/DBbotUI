@@ -1,3 +1,3 @@
-export function startWithOperator(inputValue: string, compareValue: string) {
-    return inputValue.toLowerCase().startsWith(compareValue.toLowerCase());
+export function startWithOperator(cell: string, value: string) {
+    return cell.toLowerCase().startsWith(value.toLowerCase());
 }
