@@ -1,3 +1,3 @@
-export function equalStringOperator(inputValue: string, compareValue: string) {
-    return inputValue.toLowerCase() === compareValue.toLowerCase();
+export function equalStringOperator(cell: string, value: string) {
+    return cell.toLowerCase() === value.toLowerCase();
 }

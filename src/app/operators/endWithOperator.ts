@@ -1,3 +1,3 @@
-export function endWithOperator(inputValue: string, compareValue: string) {
-    return inputValue.toLowerCase().endsWith(compareValue.toLowerCase());
+export function endWithOperator(cell: string, value: string) {
+    return cell.toLowerCase().endsWith(value.toLowerCase());
 }

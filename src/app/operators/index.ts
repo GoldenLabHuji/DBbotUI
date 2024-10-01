@@ -6,6 +6,8 @@ import { startWithOperator } from "./startWithOperator";
 import { endWithOperator } from "./endWithOperator";
 import { containsOperator } from "./containsOperator";
 import { equalStringOperator } from "./equalStringOperator";
+import { chooseMultipleOperator } from "./chooseMultipleOperator";
+import { chooseOneOperator } from "./chooseOneOperator";
 
 export {
     greaterOperator,
@@ -16,4 +18,6 @@ export {
     endWithOperator,
     containsOperator,
     equalStringOperator,
+    chooseMultipleOperator,
+    chooseOneOperator,
 };
