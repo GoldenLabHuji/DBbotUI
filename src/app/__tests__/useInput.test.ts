@@ -3,12 +3,8 @@ import "@testing-library/jest-dom";
 import { renderHook, act } from "@testing-library/react";
 import useInput from "@/app/hooks/useInput";
 import { Bot, Message } from "@/app/general/interfaces";
-import { sender, DataType } from "@/app/general/types";
-import {
-    botMessages,
-    botRestartMessages,
-    botAddMessages,
-} from "@/app/general/resources";
+import { sender } from "@/app/general/types";
+import { botMessages, botAddMessages } from "@/app/general/resources";
 
 // Mock data for testing
 const botMock: Bot = {
