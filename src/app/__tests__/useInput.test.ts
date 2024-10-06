@@ -2,8 +2,8 @@ import "@testing-library/jest-dom/jest-globals";
 import "@testing-library/jest-dom";
 import { renderHook, act } from "@testing-library/react";
 import useInput from "@/app/hooks/useInput";
-import { Bot, DataType, Message } from "@/app/general/interfaces";
-import { sender } from "@/app/general/types";
+import { Bot, Message } from "@/app/general/interfaces";
+import { sender, DataType } from "@/app/general/types";
 import {
     botMessages,
     botRestartMessages,
@@ -23,7 +23,7 @@ const botMock: Bot = {
             {
                 _id: "name",
                 displayName: "Name",
-                dataType: DataType.String,
+                dataType: "string",
                 operatorsArray: [
                     {
                         id: "equals",
@@ -31,7 +31,7 @@ const botMock: Bot = {
                         params: [
                             {
                                 isArray: false,
-                                dataType: DataType.String,
+                                dataType: "string",
                                 name: "cell",
                             },
                         ],
@@ -42,7 +42,7 @@ const botMock: Bot = {
                         params: [
                             {
                                 isArray: false,
-                                dataType: DataType.String,
+                                dataType: "string",
                                 name: "cell",
                             },
                         ],
@@ -74,7 +74,7 @@ const botMock: Bot = {
             params: [
                 {
                     isArray: false,
-                    dataType: DataType.String,
+                    dataType: "string",
                     name: "cell",
                 },
             ],
@@ -85,7 +85,7 @@ const botMock: Bot = {
             params: [
                 {
                     isArray: false,
-                    dataType: DataType.String,
+                    dataType: "string",
                     name: "cell",
                 },
             ],
