@@ -1,6 +1,7 @@
 import { Message, MessageSection, Bot } from "@/app/general/interfaces";
 import { sender, typeOfQuestion } from "@/app/general/types";
 import { convertTextToMessage } from "@/app/general/utils";
+import { NO_RESULTS_FOUND } from "@/app/general/constants";
 
 export const botMessages = (bot: Bot): Message[] => {
     const headers = bot?._data.headers || [];
@@ -187,7 +188,7 @@ export const resultMsg = (bot: Bot, foundResults: boolean): Message[] => {
             id: 0,
             text: foundResults
                 ? bot?._messages?.customMessages.resultMessage
-                : "No results found",
+                : NO_RESULTS_FOUND,
             sender: "bot" as sender,
             typeOfQuestion: "result" as typeOfQuestion,
         },
