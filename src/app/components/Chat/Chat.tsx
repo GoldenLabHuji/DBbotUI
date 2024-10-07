@@ -18,6 +18,7 @@ import { resultMsg } from "@/app/general/resources";
 import CSVButton from "@/app/components/CSVButton";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import Dialog from "@/app/components/Dialog";
 
 export default function Chat({ bot }: ChatProps) {
     const [messagesSection, setMessagesSection] =
@@ -27,6 +28,7 @@ export default function Chat({ bot }: ChatProps) {
     const [isResult, setIsResult] = useRecoilState(isResultsAtom);
     const [isQuerySubmit, ___] = useRecoilState(isQuerySubmitAtom);
     const [loading, setLoading] = useState<boolean>(false);
+    const [openAlert, setOpenAlert] = useState<boolean>(false);
 
     const messagesEndRef = useRef(null);
 
@@ -67,22 +69,28 @@ export default function Chat({ bot }: ChatProps) {
         };
         if (isQuerySubmit) {
             getQueryWords();
+            setIsResult(true);
         }
     }, [isQuerySubmit]);
 
     useEffect(() => {
-        if (isQuerySubmit) {
+        if (isQuerySubmit && isResult) {
             setMessagesSection((prev) => [
                 ...prev,
 
                 {
                     id: 0,
-                    messageSection: resultMsg(bot),
+                    messageSection: resultMsg(bot, queryWords.length > 0),
                 },
             ]);
-            setIsResult(true);
         }
-    }, [isQuerySubmit]);
+    }, [isQuerySubmit, queryWords]);
+
+    useEffect(() => {
+        if (isResult && !(queryWords.length > 0)) {
+            setOpenAlert(true);
+        }
+    }, [queryWords]);
 
     return (
         <Box sx={styles.headFootContainer}>
@@ -114,6 +122,13 @@ export default function Chat({ bot }: ChatProps) {
                     {isResult && queryWords.length > 0 && (
                         <CSVButton queryWords={queryWords} />
                     )}
+                    <Dialog
+                        open={openAlert}
+                        setOpen={setOpenAlert}
+                        title="No results found"
+                        content="No results found for the selected filters. You can try
+                        again with different filters."
+                    />
                     <Box component="div" ref={messagesEndRef} />
                 </Box>
 
