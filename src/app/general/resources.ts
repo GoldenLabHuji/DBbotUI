@@ -1,6 +1,7 @@
 import { Message, MessageSection, Bot } from "@/app/general/interfaces";
 import { sender, typeOfQuestion } from "@/app/general/types";
 import { convertTextToMessage } from "@/app/general/utils";
+import { NO_RESULTS_FOUND } from "@/app/general/constants";
 
 export const botMessages = (bot: Bot): Message[] => {
     const headers = bot?._data.headers || [];
@@ -172,7 +173,7 @@ ${bot?._messages.customMessages.continueMessage}`,
     ];
 };
 
-export const resultMsg = (bot: Bot): Message[] => {
+export const resultMsg = (bot: Bot, foundResults: boolean): Message[] => {
     const resultSlot = bot?._messages?.slots.resultSlot ?? [];
     const resultSlotArray = resultSlot.map((msg, index) =>
         convertTextToMessage(
@@ -185,7 +186,9 @@ export const resultMsg = (bot: Bot): Message[] => {
         ...resultSlotArray,
         {
             id: 0,
-            text: bot?._messages?.customMessages.resultMessage,
+            text: foundResults
+                ? bot?._messages?.customMessages.resultMessage
+                : NO_RESULTS_FOUND,
             sender: "bot" as sender,
             typeOfQuestion: "result" as typeOfQuestion,
         },

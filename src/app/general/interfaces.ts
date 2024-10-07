@@ -122,3 +122,9 @@ interface TextProp {
 export interface HeaderProps extends TextProp {}
 
 export interface InfoTooltipProps extends TextProp {}
+export interface DialogProps {
+    title: string;
+    content: string;
+    open: boolean;
+    setOpen: (open: boolean) => void;
+}
