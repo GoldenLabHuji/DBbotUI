@@ -115,6 +115,10 @@ export interface QueryWords extends generalObject<Attribute> {}
 
 export interface WordData extends generalObject<strOrNum | null> {}
 
-export interface HeaderProps {
+interface TextProp {
     text: string;
 }
+
+export interface HeaderProps extends TextProp {}
+
+export interface InfoTooltipProps extends TextProp {}
