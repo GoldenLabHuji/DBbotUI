@@ -55,10 +55,12 @@ interface BotData {
     columns: BotColumn[];
 }
 
-interface BotDetails {
+export interface NameAndDescription {
     name: string;
     description: string;
 }
+
+interface BotDetails extends NameAndDescription {}
 
 interface BotMessages {
     customMessages: CustomMessages;
@@ -127,4 +129,10 @@ export interface DialogProps {
     content: string;
     open: boolean;
     setOpen: (open: boolean) => void;
+    children: React.ReactNode;
+}
+
+export interface AttributesDisplayProps<T> {
+    rows: T[];
+    headers: string[];
 }
