@@ -1,7 +1,7 @@
 "use client";
-import { AttributesDisplayProps } from "@/app/general/interfaces";
+import { TableProps } from "@/app/general/interfaces";
 import {
-    Table,
+    Table as MUITable,
     TableBody,
     TableCell,
     TableContainer,
@@ -10,13 +10,10 @@ import {
     Paper,
 } from "@mui/material";
 
-export default function AttributesDisplay<T>({
-    rows,
-    headers,
-}: AttributesDisplayProps<T>) {
+export default function Table<T>({ rows, headers }: TableProps<T>) {
     return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }}>
+            <MUITable sx={{ minWidth: 650 }}>
                 <TableHead>
                     <TableRow>
                         {headers.map((header, index) => (
@@ -46,7 +43,7 @@ export default function AttributesDisplay<T>({
                         </TableRow>
                     ))}
                 </TableBody>
-            </Table>
+            </MUITable>
         </TableContainer>
     );
 }

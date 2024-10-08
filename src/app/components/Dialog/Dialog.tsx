@@ -14,7 +14,7 @@ export default function Dialog({
     content,
     open,
     setOpen,
-    children = null,
+    children,
 }: DialogProps) {
     return (
         <MuiDialog open={open} onClose={() => setOpen(false)}>
