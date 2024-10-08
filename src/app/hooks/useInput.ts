@@ -1,8 +1,8 @@
 import { useState, Dispatch, SetStateAction } from "react";
 import { Message, Bot } from "@/app/general/interfaces";
 import {
-    sender,
-    typeOfQuestion,
+    Sender,
+    TypeOfQuestion,
     currentMsgType,
     currentQIndexType,
 } from "@/app/general/types";
@@ -44,8 +44,8 @@ export default function useInput(
             const newMessage: Message = {
                 id: currentMsg.state.length,
                 text: bot?._messages.customMessages?.errorMessage,
-                sender: "bot" as sender,
-                typeOfQuestion: typeOfQuestion as typeOfQuestion,
+                sender: Sender.BOT,
+                typeOfQuestion: typeOfQuestion as TypeOfQuestion,
                 answerOptions: lastMessageSectionQuestion.answerOptions,
             };
             currentMsg.setState([...currentMsg.state, newMessage]);
@@ -55,13 +55,13 @@ export default function useInput(
             const newMessage: Message = {
                 id: currentMsg.state.length,
                 text: input,
-                sender: "user" as sender,
-                typeOfQuestion: typeOfQuestion as typeOfQuestion,
+                sender: Sender.USER,
+                typeOfQuestion: typeOfQuestion as TypeOfQuestion,
             };
             currentMsg.setState([...currentMsg.state, newMessage]);
 
             switch (typeOfQuestion) {
-                case "parameter":
+                case TypeOfQuestion.PARAMETER:
                     const currentHeader = bot?._data.headers[Number(input) - 1];
                     const currentParameter = bot?._data.columns.filter(
                         (col) => col.displayName === currentHeader
@@ -72,7 +72,7 @@ export default function useInput(
                         ...botOperatorMessages(bot, currentParameter),
                     ]);
                     break;
-                case "operator":
+                case TypeOfQuestion.OPERATOR:
                     const operatorIndex = Number(input) - 1;
                     bot.currentOperatorIndex = operatorIndex;
 
@@ -87,7 +87,7 @@ export default function useInput(
                         setBotMsg([...botMsg, ...funcParamsMsg]);
                     }
                     break;
-                case "add":
+                case TypeOfQuestion.ADD:
                     const isEnd = Number(input) === 2;
                     setIsEndSection(true);
                     setIsEndChat(isEnd);

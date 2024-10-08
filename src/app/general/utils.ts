@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { OPERATORS } from "@/app/operators/operators";
 import { Message, Bot } from "@/app/general/interfaces";
+import { Sender, TypeOfQuestion } from "@/app/general/types";
 
 export function isNumberArray(value: any): value is number[] {
     const isArray = Array.isArray(value);
@@ -24,8 +25,8 @@ export function convertTextToMessage(
     return {
         id: id,
         text: text + "\n" + continueMessage,
-        sender: "bot",
-        typeOfQuestion: "intro",
+        sender: Sender.BOT,
+        typeOfQuestion: TypeOfQuestion.INTRO,
         answerOptions: [1],
     };
 }
