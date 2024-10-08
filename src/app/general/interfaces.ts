@@ -118,3 +118,10 @@ export interface WordData extends generalObject<strOrNum | null> {}
 export interface HeaderProps {
     text: string;
 }
+
+export interface DialogProps {
+    title: string;
+    content: string;
+    open: boolean;
+    setOpen: (open: boolean) => void;
+}
