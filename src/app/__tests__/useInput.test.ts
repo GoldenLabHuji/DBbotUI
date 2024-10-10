@@ -2,100 +2,12 @@ import "@testing-library/jest-dom/jest-globals";
 import "@testing-library/jest-dom";
 import { renderHook, act } from "@testing-library/react";
 import useInput from "@/app/hooks/useInput";
-import { Bot, Message } from "@/app/general/interfaces";
-import { Sender, TypeOfQuestion, DataType } from "@/app/general/types";
+import { Message } from "@/app/general/interfaces";
+import { Sender, TypeOfQuestion } from "@/app/general/types";
 import { botMessages, botAddMessages } from "@/app/general/resources";
+import { botMock } from "@/app/__tests__/resources";
 
 // Mock data for testing
-const botMock: Bot = {
-    dataMap: {},
-    _details: {
-        name: "Bot",
-        description: "A bot for testing",
-    },
-    _data: {
-        headers: ["Name", "Age"],
-        columns: [
-            {
-                _id: "name",
-                displayName: "Name",
-                dataType: DataType.STRING,
-                operatorsArray: [
-                    {
-                        id: "equals",
-                        displayName: "equals",
-                        params: [
-                            {
-                                isArray: false,
-                                dataType: DataType.STRING,
-                                name: "cell",
-                            },
-                        ],
-                    },
-                    {
-                        id: "contains",
-                        displayName: "contains",
-                        params: [
-                            {
-                                isArray: false,
-                                dataType: DataType.STRING,
-                                name: "cell",
-                            },
-                        ],
-                    },
-                ],
-                rows: ["Alice", "Bob"],
-            },
-        ],
-    },
-    _messages: {
-        customMessages: {
-            errorMessage: "Invalid input",
-            attributeMessage: "Please select an attribute",
-            operatorMessage: "Choose an operator",
-            continueMessage: "Continue",
-            resultMessage: "Here is the result",
-        },
-        slots: {
-            welcomeSlot: ["Welcome to the bot"],
-            restartSlot: ["Restarting the process"],
-        },
-    },
-    currentOperatorIndex: 0,
-    filePath: "path/to/file",
-    operatorsData: [
-        {
-            id: "equals",
-            displayName: "equals",
-            params: [
-                {
-                    isArray: false,
-                    dataType: DataType.STRING,
-                    name: "cell",
-                },
-            ],
-        },
-        {
-            id: "contains",
-            displayName: "contains",
-            params: [
-                {
-                    isArray: false,
-                    dataType: DataType.STRING,
-                    name: "cell",
-                },
-            ],
-        },
-    ],
-    operatorsFiles: {
-        functions: {
-            startsWithBAndEndsWithX:
-                '\n\n        export const startsWithBAndEndsWithX = function (cell, value) {\n        return cell.startsWith("B") && cell.endsWith(value);\n    };',
-        },
-        main: '\nimport {\n    greaterOperator,\n    lowerOperator,\n    equalOperator,\n    rangeOperator,\n    startWithOperator,\n    endWithOperator,\n    containsOperator,\n    equalStringOperator,\n    chooseOneOperator,\n    chooseMultipleOperator,   \n} from "@/app/operators";\n\nexport const OPERATORS = {\n    greater: greaterOperator,\n    lower: lowerOperator,\n    equal: equalOperator,\n    range: rangeOperator,\n    startWith: startWithOperator,\n    endWith: endWithOperator,\n    contains: containsOperator,\n    equalString: equalStringOperator,\n    chooseOne: chooseOneOperator,\n    chooseMultiple: chooseMultipleOperator,\n};\n\nimport { startsWithBAndEndsWithX } from "@/app/operators/startsWithBAndEndsWithX";\n\nOPERATORS["startsWithBAndEndsWithX" as keyof typeof OPERATORS] = startsWithBAndEndsWithX;',
-    },
-    colors: { bot: "green", user: "blue" },
-};
 
 const currentMsgMock = {
     state: [
