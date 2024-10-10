@@ -1,5 +1,5 @@
 import { Message, MessageSection, Bot } from "@/app/general/interfaces";
-import { sender, typeOfQuestion } from "@/app/general/types";
+import { Sender, TypeOfQuestion } from "@/app/general/types";
 import { convertTextToMessage } from "@/app/general/utils";
 import { NO_RESULTS_FOUND } from "@/app/general/constants";
 
@@ -29,8 +29,8 @@ export const botMessages = (bot: Bot): Message[] => {
 ${headersString}
 
 Which property would you like to start with?`,
-            sender: "bot",
-            typeOfQuestion: "parameter",
+            sender: Sender.BOT,
+            typeOfQuestion: TypeOfQuestion.PARAMETER,
             answerOptions: Array.from(
                 { length: headers.length },
                 (_, index) => index + 1
@@ -59,8 +59,8 @@ export const botOperatorMessages = (
         text: `${chosenOperator?.message}
             
 ${bot?._messages.customMessages.continueMessage}`,
-        sender: "bot",
-        typeOfQuestion: "intro",
+        sender: Sender.BOT,
+        typeOfQuestion: TypeOfQuestion.INTRO,
         answerOptions: [1],
     };
 
@@ -81,8 +81,8 @@ ${bot?._messages.customMessages.continueMessage}`,
 
 ${optionsString}
 `,
-            sender: "bot",
-            typeOfQuestion: "operator",
+            sender: Sender.BOT,
+            typeOfQuestion: TypeOfQuestion.OPERATOR,
             answerOptions: Array.from(
                 { length: operators.length },
                 (_, index) => index + 1
@@ -112,8 +112,8 @@ export const botFunctionParamsMessages = (
         return {
             id: index,
             text: prm?.message ?? `Enter value for parameter ${prm?.name}:`,
-            sender: "bot",
-            typeOfQuestion: "functionParams",
+            sender: Sender.BOT,
+            typeOfQuestion: TypeOfQuestion.FUNCTION_PARAMS,
         };
     });
     const messageWithoutFirst = messages.slice(1);
@@ -142,8 +142,8 @@ export const botAddMessages: Message[] = [
     
     1. Yes
     2. No`,
-        sender: "bot",
-        typeOfQuestion: "add",
+        sender: Sender.BOT,
+        typeOfQuestion: TypeOfQuestion.ADD,
         answerOptions: [1, 2],
     },
 ];
@@ -165,8 +165,8 @@ export const botRestartMessages = (bot: Bot): Message[] => {
             text: `To add another parameter, I will go through the same process as before.
 
 ${bot?._messages.customMessages.continueMessage}`,
-            sender: "bot",
-            typeOfQuestion: "intro",
+            sender: Sender.BOT,
+            typeOfQuestion: TypeOfQuestion.INTRO,
             answerOptions: [1],
         },
         startMsg,
@@ -189,8 +189,8 @@ export const resultMsg = (bot: Bot, foundResults: boolean): Message[] => {
             text: foundResults
                 ? bot?._messages?.customMessages.resultMessage
                 : NO_RESULTS_FOUND,
-            sender: "bot" as sender,
-            typeOfQuestion: "result" as typeOfQuestion,
+            sender: Sender.BOT,
+            typeOfQuestion: TypeOfQuestion.RESULT,
         },
     ];
 };
@@ -205,8 +205,8 @@ export const defaultMsgSection = [
 export const emptyMessage: Message = {
     id: 0,
     text: "empty message",
-    sender: "bot",
-    typeOfQuestion: "functionParams",
+    sender: Sender.BOT,
+    typeOfQuestion: TypeOfQuestion.FUNCTION_PARAMS,
 };
 
 export const colorCodes = {

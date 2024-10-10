@@ -1,14 +1,14 @@
 import {
-    sender,
-    typeOfQuestion,
+    Sender,
+    TypeOfQuestion,
     strOrNum,
     DataType,
 } from "@/app/general/types";
 
 export interface Message extends TextProp {
     id: number;
-    sender: sender;
-    typeOfQuestion: typeOfQuestion;
+    sender: Sender;
+    typeOfQuestion: TypeOfQuestion;
     answerOptions?: number[];
 }
 
