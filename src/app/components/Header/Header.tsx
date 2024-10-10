@@ -10,6 +10,11 @@ import {
     generalObject,
 } from "@/app/general/interfaces";
 import { strOrNum } from "@/app/general/types";
+import {
+    SAMPLE_SIZE,
+    ATTRIBUTES_BUTTON_TEXT,
+    SAMPLE_BUTTON_TEXT,
+} from "@/app/general/constants";
 
 export default function Header({ bot }: HeaderProps) {
     const [openAttribute, setOpenAttribute] = useState<boolean>(false);
@@ -18,15 +23,15 @@ export default function Header({ bot }: HeaderProps) {
     const botHeaders = bot?._data.headers;
     const botColumns = bot?._data.columns;
 
-    const rows: generalObject<strOrNum>[] = [];
-
-    [0, 1, 2, 3, 4].forEach((index) => {
+    const rows: generalObject<strOrNum>[] = botHeaders.map((_, index) => {
         const row: generalObject<strOrNum> = {};
         botColumns.forEach((col) => {
             row[col.displayName] = col.rows[index];
         });
-        rows.push(row);
+        return row;
     });
+
+    const sampleRows = rows.slice(0, SAMPLE_SIZE);
 
     const attributesRows = botColumns?.map((column) => ({
         name: column.displayName,
@@ -42,7 +47,7 @@ export default function Header({ bot }: HeaderProps) {
                     sx={styles.attributeButton}
                     onClick={() => setOpenAttribute(true)}
                 >
-                    Display Attributes
+                    {ATTRIBUTES_BUTTON_TEXT}
                 </Button>
             </Box>
             <Box component="div" sx={styles.typContainer}>
@@ -57,7 +62,7 @@ export default function Header({ bot }: HeaderProps) {
                     sx={styles.dataButton}
                     onClick={() => setOpenData(true)}
                 >
-                    Display Data Sample
+                    {SAMPLE_BUTTON_TEXT}
                 </Button>
             </Box>
             <Dialog
@@ -80,7 +85,7 @@ export default function Header({ bot }: HeaderProps) {
                 children={
                     <Table<generalObject<strOrNum>>
                         headers={botHeaders}
-                        rows={rows}
+                        rows={sampleRows}
                     />
                 }
             ></Dialog>

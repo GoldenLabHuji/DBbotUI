@@ -9,11 +9,12 @@ import {
     TableRow,
     Paper,
 } from "@mui/material";
+import { styles } from "./Table.style";
 
 export default function Table<T>({ rows, headers }: TableProps<T>) {
     return (
         <TableContainer component={Paper}>
-            <MUITable sx={{ minWidth: 650 }}>
+            <MUITable sx={styles.table}>
                 <TableHead>
                     <TableRow>
                         {headers.map((header, index) => (
@@ -23,14 +24,7 @@ export default function Table<T>({ rows, headers }: TableProps<T>) {
                 </TableHead>
                 <TableBody>
                     {rows.map((row, index) => (
-                        <TableRow
-                            key={index}
-                            sx={{
-                                "&:last-child td, &:last-child th": {
-                                    border: 0,
-                                },
-                            }}
-                        >
+                        <TableRow key={index} sx={styles.tableRow}>
                             {headers.map((header, index) => (
                                 <TableCell
                                     key={index}
