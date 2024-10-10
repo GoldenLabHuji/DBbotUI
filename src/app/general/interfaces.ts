@@ -5,9 +5,8 @@ import {
     DataType,
 } from "@/app/general/types";
 
-export interface Message {
+export interface Message extends TextProp {
     id: number;
-    text: string;
     sender: Sender;
     typeOfQuestion: TypeOfQuestion;
     answerOptions?: number[];
@@ -18,9 +17,11 @@ export interface MessageSection {
     messageSection: Message[];
 }
 
-export interface ChatProps {
+interface BotProperty {
     bot: Bot;
 }
+
+export interface ChatProps extends BotProperty {}
 export interface ChatBoxProps extends ChatProps {}
 
 export interface MessageProps {
@@ -55,10 +56,12 @@ interface BotData {
     columns: BotColumn[];
 }
 
-interface BotDetails {
+export interface NameAndDescription {
     name: string;
     description: string;
 }
+
+interface BotDetails extends NameAndDescription {}
 
 interface BotMessages {
     customMessages: CustomMessages;
@@ -86,6 +89,7 @@ export interface BotColumn {
     displayName: string;
     rows: strOrNum[];
     operatorsArray: BotOperatorData[];
+    _description: string;
 }
 interface BotOperatorData {
     params: BotOperatorParams[];
@@ -107,7 +111,7 @@ export interface Attribute {
     operator: string;
 }
 
-interface generalObject<T> {
+export interface generalObject<T> {
     [key: string]: T;
 }
 
@@ -115,13 +119,23 @@ export interface QueryWords extends generalObject<Attribute> {}
 
 export interface WordData extends generalObject<strOrNum | null> {}
 
-export interface HeaderProps {
+interface TextProp {
     text: string;
 }
+
+export interface HeaderProps extends BotProperty {}
+
+export interface InfoTooltipProps extends TextProp {}
 
 export interface DialogProps {
     title: string;
     content: string;
     open: boolean;
     setOpen: (open: boolean) => void;
+    children?: React.ReactNode;
+}
+
+export interface TableProps<T> {
+    rows: T[];
+    headers: string[];
 }

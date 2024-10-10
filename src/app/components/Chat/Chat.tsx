@@ -94,7 +94,7 @@ export default function Chat({ bot }: ChatProps) {
 
     return (
         <Box sx={styles.headFootContainer}>
-            <Header text={bot?._details.name as string} />
+            <Header bot={bot} />
             <Box sx={styles.container}>
                 <Box sx={styles.secondContainer}>
                     {(messagesSection &&
