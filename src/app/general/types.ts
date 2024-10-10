@@ -1,16 +1,26 @@
 import { Dispatch, SetStateAction } from "react";
 import { Message } from "@/app/general/interfaces";
 
-export type DataType = "string" | "numeric" | "factor";
-export type sender = "bot" | "user";
-export type typeOfQuestion =
-    | "parameter"
-    | "functionParams"
-    | "value"
-    | "operator"
-    | "add"
-    | "result"
-    | "intro";
+export enum DataType {
+    STRING = "string",
+    NUMERIC = "numeric",
+    FACTOR = "factor",
+}
+
+export enum Sender {
+    BOT = "bot",
+    USER = "user",
+}
+
+export enum TypeOfQuestion {
+    PARAMETER = "parameter",
+    FUNCTION_PARAMS = "functionParams",
+    VALUE = "value",
+    OPERATOR = "operator",
+    ADD = "add",
+    RESULT = "result",
+    INTRO = "intro",
+}
 
 export type currentMsgType = {
     state: Message[];

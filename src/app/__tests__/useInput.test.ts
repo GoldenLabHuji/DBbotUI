@@ -2,13 +2,9 @@ import "@testing-library/jest-dom/jest-globals";
 import "@testing-library/jest-dom";
 import { renderHook, act } from "@testing-library/react";
 import useInput from "@/app/hooks/useInput";
-import { Bot, DataType, Message } from "@/app/general/interfaces";
-import { sender } from "@/app/general/types";
-import {
-    botMessages,
-    botRestartMessages,
-    botAddMessages,
-} from "@/app/general/resources";
+import { Bot, Message } from "@/app/general/interfaces";
+import { Sender, TypeOfQuestion, DataType } from "@/app/general/types";
+import { botMessages, botAddMessages } from "@/app/general/resources";
 
 // Mock data for testing
 const botMock: Bot = {
@@ -23,7 +19,7 @@ const botMock: Bot = {
             {
                 _id: "name",
                 displayName: "Name",
-                dataType: DataType.String,
+                dataType: DataType.STRING,
                 operatorsArray: [
                     {
                         id: "equals",
@@ -31,7 +27,7 @@ const botMock: Bot = {
                         params: [
                             {
                                 isArray: false,
-                                dataType: DataType.String,
+                                dataType: DataType.STRING,
                                 name: "cell",
                             },
                         ],
@@ -42,7 +38,7 @@ const botMock: Bot = {
                         params: [
                             {
                                 isArray: false,
-                                dataType: DataType.String,
+                                dataType: DataType.STRING,
                                 name: "cell",
                             },
                         ],
@@ -74,7 +70,7 @@ const botMock: Bot = {
             params: [
                 {
                     isArray: false,
-                    dataType: DataType.String,
+                    dataType: DataType.STRING,
                     name: "cell",
                 },
             ],
@@ -85,7 +81,7 @@ const botMock: Bot = {
             params: [
                 {
                     isArray: false,
-                    dataType: DataType.String,
+                    dataType: DataType.STRING,
                     name: "cell",
                 },
             ],
@@ -106,8 +102,8 @@ const currentMsgMock = {
         {
             id: 0,
             text: "test bot message",
-            sender: "bot" as sender,
-            typeOfQuestion: "parameter",
+            sender: Sender.BOT,
+            typeOfQuestion: TypeOfQuestion.PARAMETER,
             answerOptions: [1],
         } as Message,
     ],
@@ -165,8 +161,8 @@ describe("useInput Hook", () => {
             {
                 id: 1,
                 text: "1",
-                sender: "user",
-                typeOfQuestion: "parameter",
+                sender: Sender.USER,
+                typeOfQuestion: TypeOfQuestion.PARAMETER,
             },
         ]);
 
@@ -196,8 +192,8 @@ describe("useInput Hook", () => {
             {
                 id: 1,
                 text: "Invalid input",
-                sender: "bot",
-                typeOfQuestion: "parameter",
+                sender: Sender.BOT,
+                typeOfQuestion: TypeOfQuestion.PARAMETER,
                 answerOptions: [1],
             },
         ]);

@@ -1,7 +1,12 @@
 import { useRecoilState } from "recoil";
 import { messagesSectionAtom } from "@/app/store/atoms";
 import { Attribute, Bot, BotColumn } from "@/app/general/interfaces";
-import { strOrNum } from "@/app/general/types";
+import {
+    strOrNum,
+    TypeOfQuestion,
+    Sender,
+    DataType,
+} from "@/app/general/types";
 
 export default function useEndChat(bot: Bot) {
     const [messages, _] = useRecoilState(messagesSectionAtom);
@@ -11,17 +16,17 @@ export default function useEndChat(bot: Bot) {
 
         messages.forEach((msgSec) => {
             const userFilteredMessages = msgSec?.messageSection.filter(
-                (msg) => msg && msg?.sender === "user"
+                (msg) => msg && msg?.sender === Sender.USER
             );
 
             const parametersMessages = userFilteredMessages.filter(
-                (msg) => msg.typeOfQuestion === "parameter"
+                (msg) => msg.typeOfQuestion === TypeOfQuestion.PARAMETER
             );
             const operatorsMessages = userFilteredMessages.filter(
-                (msg) => msg.typeOfQuestion === "operator"
+                (msg) => msg.typeOfQuestion === TypeOfQuestion.OPERATOR
             );
             const functionParamsMessages = userFilteredMessages.filter(
-                (msg) => msg.typeOfQuestion === "functionParams"
+                (msg) => msg.typeOfQuestion === TypeOfQuestion.FUNCTION_PARAMS
             );
 
             const parameter =
@@ -45,7 +50,7 @@ export default function useEndChat(bot: Bot) {
 
             const functionParams: strOrNum[] = [];
             functionParamsMessages.forEach((msg) => {
-                if (parameterDataType === "numeric")
+                if (parameterDataType === DataType.NUMERIC)
                     functionParams.push(Number(msg.text));
                 else functionParams.push(msg.text);
             });

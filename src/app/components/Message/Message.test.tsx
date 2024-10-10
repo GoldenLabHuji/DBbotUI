@@ -4,6 +4,7 @@ import { render, screen } from "@testing-library/react";
 import Message from "@/app/components/Message";
 import { Colors, Message as IMessage } from "@/app/general/interfaces";
 import { colorCodes } from "@/app/general/resources";
+import { TypeOfQuestion, Sender } from "@/app/general/types";
 
 // Mock props
 const mockColors: Colors = {
@@ -14,15 +15,15 @@ const mockColors: Colors = {
 const mockMessageBot: IMessage = {
     id: 1,
     text: "Hello, I am a bot",
-    sender: "bot",
-    typeOfQuestion: "intro",
+    sender: Sender.BOT,
+    typeOfQuestion: TypeOfQuestion.INTRO,
 };
 
 const mockMessageUser: IMessage = {
     id: 2,
     text: "Hello, I am a user",
-    sender: "user",
-    typeOfQuestion: "result",
+    sender: Sender.USER,
+    typeOfQuestion: TypeOfQuestion.RESULT,
 };
 
 describe("Message Component", () => {

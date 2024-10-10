@@ -1,6 +1,6 @@
 import {
-    sender,
-    typeOfQuestion,
+    Sender,
+    TypeOfQuestion,
     strOrNum,
     DataType,
 } from "@/app/general/types";
@@ -8,8 +8,8 @@ import {
 export interface Message {
     id: number;
     text: string;
-    sender: sender;
-    typeOfQuestion: typeOfQuestion;
+    sender: Sender;
+    typeOfQuestion: TypeOfQuestion;
     answerOptions?: number[];
 }
 
