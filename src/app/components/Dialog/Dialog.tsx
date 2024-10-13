@@ -14,12 +14,14 @@ export default function Dialog({
     content,
     open,
     setOpen,
+    children,
 }: DialogProps) {
     return (
         <MuiDialog open={open} onClose={() => setOpen(false)}>
             <DialogTitle>{title}</DialogTitle>
             <DialogContent>
                 <DialogContentText>{content}</DialogContentText>
+                {children}
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => setOpen(false)} autoFocus>
