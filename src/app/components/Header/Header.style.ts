@@ -3,7 +3,6 @@ export const styles = {
         display: "flex",
         backgroundColor: "#f8f9fa",
         padding: 2,
-        justifyContent: "center",
         color: "black",
     },
     typContainer: {
@@ -11,17 +10,14 @@ export const styles = {
         textAlign: "center",
         justifyContent: "center",
     },
-    dataContainer: {
-        width: "33%",
-        direction: "rtl",
+    button: {
+        width: "22%",
+        height: "80%",
+        fontSize: "14px",
+        borderRadius: "15px",
+        margin: "5px",
     },
-    buttonContainer: {
-        width: "33%",
-    },
-    attributeButton: {
-        width: "25%",
-    },
-    dataButton: {
-        width: "25%",
+    buttonsContainer: {
+        width: "30%",
     },
 };

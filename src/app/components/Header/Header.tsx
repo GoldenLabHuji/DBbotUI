@@ -15,23 +15,17 @@ import {
     SAMPLE_SIZE,
     ATTRIBUTES_BUTTON_TEXT,
     SAMPLE_BUTTON_TEXT,
+    NO_HELP_DESCRIPTION,
 } from "@/app/general/constants";
+import { getTableInfo } from "@/app/general/utils";
 
 export default function Header({ bot }: HeaderProps) {
     const [openAttribute, setOpenAttribute] = useState<boolean>(false);
     const [openData, setOpenData] = useState<boolean>(false);
+    const [openHelp, setOpenHelp] = useState<boolean>(false);
 
-    const botHeaders = bot?._data.headers;
-    const botColumns = bot?._data.columns;
-
-    const rows: generalObject<strOrNum>[] = botHeaders.map((_, index) => {
-        const row: generalObject<strOrNum> = {};
-        botColumns.forEach((col) => {
-            row[col.displayName] = col.rows[index];
-        });
-        return row;
-    });
-
+    const helpDescription = bot?._details.helpDescription;
+    const { botHeaders, botColumns, rows } = getTableInfo(bot);
     const sampleRows = rows.slice(0, SAMPLE_SIZE);
 
     const attributesRows = botColumns?.map((column) => ({
@@ -39,51 +33,62 @@ export default function Header({ bot }: HeaderProps) {
         description: column._description,
     }));
 
+    const buttons = [
+        { onClick: () => setOpenAttribute(true), text: ATTRIBUTES_BUTTON_TEXT },
+        { onClick: () => setOpenData(true), text: SAMPLE_BUTTON_TEXT },
+        { onClick: () => setOpenHelp(true), text: "Help!" },
+    ];
+
+    const dialogs = [
+        {
+            open: openAttribute,
+            setOpen: setOpenAttribute,
+            title: "Details of Attributes",
+            children: (
+                <Table<NameAndDescription>
+                    headers={["name", "description"]}
+                    rows={attributesRows}
+                />
+            ),
+        },
+        {
+            open: openData,
+            setOpen: setOpenData,
+            title: "Sample of Data",
+            children: (
+                <Table<generalObject<strOrNum>>
+                    headers={botHeaders}
+                    rows={sampleRows}
+                />
+            ),
+        },
+        {
+            open: openHelp,
+            setOpen: setOpenHelp,
+            title: "Help!",
+            content: helpDescription ?? NO_HELP_DESCRIPTION,
+        },
+    ];
+
     return (
         <Box component="header" sx={styles.box}>
-            <Box component="div" sx={styles.buttonContainer}>
-                <CustomButton
-                    sx={styles.attributeButton}
-                    onClick={() => setOpenAttribute(true)}
-                    text={ATTRIBUTES_BUTTON_TEXT}
-                />
+            <Box component="div" sx={styles.buttonsContainer}>
+                {buttons.map((button, index) => (
+                    <CustomButton key={index} sx={styles.button} {...button} />
+                ))}
             </Box>
             <Box component="div" sx={styles.typContainer}>
                 <Typography variant="h4" component="h1">
                     {bot?._details.name as string}
                 </Typography>
             </Box>
-            <Box component="div" sx={styles.dataContainer}>
-                <CustomButton
-                    sx={styles.dataButton}
-                    onClick={() => setOpenData(true)}
-                    text={SAMPLE_BUTTON_TEXT}
+            {dialogs.map((dialog, index) => (
+                <Dialog
+                    key={index}
+                    content={dialog?.content ?? ""}
+                    {...dialog}
                 />
-            </Box>
-            <Dialog
-                title="Details of Attributes"
-                content=""
-                open={openAttribute}
-                setOpen={setOpenAttribute}
-                children={
-                    <Table<NameAndDescription>
-                        headers={["name", "description"]}
-                        rows={attributesRows}
-                    />
-                }
-            ></Dialog>
-            <Dialog
-                title="Sample of Data"
-                content=""
-                open={openData}
-                setOpen={setOpenData}
-                children={
-                    <Table<generalObject<strOrNum>>
-                        headers={botHeaders}
-                        rows={sampleRows}
-                    />
-                }
-            ></Dialog>
+            ))}
         </Box>
     );
 }
