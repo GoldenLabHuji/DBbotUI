@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
 import { styles } from "./Header.style";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Table from "@/app/components/Table";
 import Dialog from "@/app/components/Dialog";
+import CustomButton from "@/app/components/CustomButton";
 import {
     HeaderProps,
     NameAndDescription,
@@ -41,14 +42,11 @@ export default function Header({ bot }: HeaderProps) {
     return (
         <Box component="header" sx={styles.box}>
             <Box component="div" sx={styles.buttonContainer}>
-                <Button
-                    variant="contained"
-                    color="primary"
+                <CustomButton
                     sx={styles.attributeButton}
                     onClick={() => setOpenAttribute(true)}
-                >
-                    {ATTRIBUTES_BUTTON_TEXT}
-                </Button>
+                    text={ATTRIBUTES_BUTTON_TEXT}
+                />
             </Box>
             <Box component="div" sx={styles.typContainer}>
                 <Typography variant="h4" component="h1">
@@ -56,14 +54,11 @@ export default function Header({ bot }: HeaderProps) {
                 </Typography>
             </Box>
             <Box component="div" sx={styles.dataContainer}>
-                <Button
-                    variant="contained"
-                    color="primary"
+                <CustomButton
                     sx={styles.dataButton}
                     onClick={() => setOpenData(true)}
-                >
-                    {SAMPLE_BUTTON_TEXT}
-                </Button>
+                    text={SAMPLE_BUTTON_TEXT}
+                />
             </Box>
             <Dialog
                 title="Details of Attributes"

@@ -1,18 +1,17 @@
-import { Button, Grid } from "@mui/material";
+"use client";
+import { Grid } from "@mui/material";
+import CustomButton from "@/app/components/CustomButton";
 import SendIcon from "@mui/icons-material/Send";
 
 export default function ChatButton() {
     return (
         <Grid item xs={2}>
-            <Button
+            <CustomButton
                 sx={{ width: "120%" }}
-                color="primary"
-                variant="contained"
                 endIcon={<SendIcon />}
                 type="submit"
-            >
-                Send
-            </Button>
+                text="Send"
+            />
         </Grid>
     );
 }

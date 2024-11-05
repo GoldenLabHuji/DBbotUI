@@ -1,7 +1,7 @@
 "use client";
 import { DialogProps } from "@/app/general/interfaces";
+import CustomButton from "@/app/components/CustomButton";
 import {
-    Button,
     Dialog as MuiDialog,
     DialogActions,
     DialogContent,
@@ -24,9 +24,11 @@ export default function Dialog({
                 {children}
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => setOpen(false)} autoFocus>
-                    Close
-                </Button>
+                <CustomButton
+                    onClick={() => setOpen(false)}
+                    autoFocus
+                    text="Close"
+                />
             </DialogActions>
         </MuiDialog>
     );

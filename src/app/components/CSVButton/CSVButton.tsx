@@ -1,8 +1,8 @@
-import { Button } from "@mui/material";
 import { saveAs } from "file-saver";
 import { parse } from "json2csv";
 import { WordData } from "@/app/general/interfaces";
 import { styles } from "@/app/components/CSVButton/CSVButton.style";
+import CustomButton from "@/app/components/CustomButton";
 
 export default function CSVButton({ queryWords }: { queryWords: WordData[] }) {
     const handleDownload = () => {
@@ -12,13 +12,10 @@ export default function CSVButton({ queryWords }: { queryWords: WordData[] }) {
     };
 
     return (
-        <Button
-            variant="contained"
-            color="primary"
+        <CustomButton
             onClick={handleDownload}
             sx={styles.button}
-        >
-            Download Results
-        </Button>
+            text="Download Results"
+        />
     );
 }
