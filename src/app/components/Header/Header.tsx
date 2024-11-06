@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { styles } from "./Header.style";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Link } from "@mui/material";
 import Table from "@/app/components/Table";
 import Dialog from "@/app/components/Dialog";
 import CustomButton from "@/app/components/CustomButton";
@@ -16,6 +16,7 @@ import {
     ATTRIBUTES_BUTTON_TEXT,
     SAMPLE_BUTTON_TEXT,
     NO_HELP_DESCRIPTION,
+    NO_MAIL_PROVIDED,
 } from "@/app/general/constants";
 import { getTableInfo } from "@/app/general/utils";
 
@@ -23,8 +24,10 @@ export default function Header({ bot }: HeaderProps) {
     const [openAttribute, setOpenAttribute] = useState<boolean>(false);
     const [openData, setOpenData] = useState<boolean>(false);
     const [openHelp, setOpenHelp] = useState<boolean>(false);
+    const [openMail, setOpenMail] = useState<boolean>(false);
 
     const helpDescription = bot?._details.helpDescription;
+    const mailInfo = bot?._details.mailInfo;
     const { botHeaders, botColumns, rows } = getTableInfo(bot);
     const sampleRows = rows.slice(0, SAMPLE_SIZE);
 
@@ -37,6 +40,7 @@ export default function Header({ bot }: HeaderProps) {
         { onClick: () => setOpenAttribute(true), text: ATTRIBUTES_BUTTON_TEXT },
         { onClick: () => setOpenData(true), text: SAMPLE_BUTTON_TEXT },
         { onClick: () => setOpenHelp(true), text: "Help!" },
+        { onClick: () => setOpenMail(true), text: "Leave us a comment" },
     ];
 
     const dialogs = [
@@ -67,6 +71,16 @@ export default function Header({ bot }: HeaderProps) {
             setOpen: setOpenHelp,
             title: "Help!",
             content: helpDescription ?? NO_HELP_DESCRIPTION,
+        },
+        {
+            open: openMail,
+            setOpen: setOpenMail,
+            title: "Leave us a comment",
+            children: (
+                <Link href={`mailto:${mailInfo}`}>
+                    {mailInfo ?? NO_MAIL_PROVIDED}
+                </Link>
+            ),
         },
     ];
 
