@@ -3,6 +3,7 @@ import { parse } from "json2csv";
 import { WordData } from "@/app/general/interfaces";
 import { styles } from "@/app/components/CSVButton/CSVButton.style";
 import CustomButton from "@/app/components/CustomButton";
+import { DOWNLOAD_RESULTS } from "@/app/general/constants";
 
 export default function CSVButton({ queryWords }: { queryWords: WordData[] }) {
     const handleDownload = () => {
@@ -15,7 +16,7 @@ export default function CSVButton({ queryWords }: { queryWords: WordData[] }) {
         <CustomButton
             onClick={handleDownload}
             sx={styles.button}
-            text="Download Results"
+            text={DOWNLOAD_RESULTS}
         />
     );
 }
