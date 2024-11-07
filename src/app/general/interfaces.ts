@@ -58,10 +58,13 @@ interface BotData {
 
 export interface NameAndDescription {
     name: string;
-    description: string;
+    description?: string;
 }
 
-interface BotDetails extends NameAndDescription {}
+interface BotDetails extends NameAndDescription {
+    helpDescription?: string;
+    mailInfo?: string;
+}
 
 interface BotMessages {
     customMessages: CustomMessages;
@@ -122,6 +125,8 @@ export interface WordData extends generalObject<strOrNum | null> {}
 interface TextProp {
     text: string;
 }
+
+export interface CustomButtonProps extends TextProp {}
 
 export interface HeaderProps extends BotProperty {}
 

@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import * as path from "path";
 import { OPERATORS } from "@/app/operators/operators";
-import { Message, Bot } from "@/app/general/interfaces";
-import { Sender, TypeOfQuestion } from "@/app/general/types";
+import { Message, Bot, generalObject } from "@/app/general/interfaces";
+import { Sender, TypeOfQuestion, strOrNum } from "@/app/general/types";
 
 export function isNumberArray(value: any): value is number[] {
     const isArray = Array.isArray(value);
@@ -47,4 +47,19 @@ export function createOperatorsFiles(bot: Bot) {
             functionsFileObject[key]
         );
     });
+}
+
+export function getTableInfo(bot: Bot) {
+    const botHeaders = bot?._data.headers;
+    const botColumns = bot?._data.columns;
+
+    const rows: generalObject<strOrNum>[] = botHeaders.map((_, index) => {
+        const row: generalObject<strOrNum> = {};
+        botColumns.forEach((col) => {
+            row[col.displayName] = col.rows[index];
+        });
+        return row;
+    });
+
+    return { botHeaders, botColumns, rows };
 }
