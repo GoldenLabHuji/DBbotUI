@@ -13,10 +13,10 @@ import {
 import { strOrNum } from "@/app/general/types";
 import {
     SAMPLE_SIZE,
-    ATTRIBUTES_BUTTON_TEXT,
-    SAMPLE_BUTTON_TEXT,
+    HEADER_BUTTONS_TEXTS,
     NO_HELP_DESCRIPTION,
     NO_MAIL_PROVIDED,
+    HEADER_DIALOGS_TITLES,
 } from "@/app/general/constants";
 import { getTableInfo } from "@/app/general/utils";
 
@@ -37,17 +37,20 @@ export default function Header({ bot }: HeaderProps) {
     }));
 
     const buttons = [
-        { onClick: () => setOpenAttribute(true), text: ATTRIBUTES_BUTTON_TEXT },
-        { onClick: () => setOpenData(true), text: SAMPLE_BUTTON_TEXT },
-        { onClick: () => setOpenHelp(true), text: "Help!" },
-        { onClick: () => setOpenMail(true), text: "Leave us a comment" },
+        {
+            onClick: () => setOpenAttribute(true),
+            text: HEADER_BUTTONS_TEXTS.attributes,
+        },
+        { onClick: () => setOpenData(true), text: HEADER_BUTTONS_TEXTS.data },
+        { onClick: () => setOpenHelp(true), text: HEADER_BUTTONS_TEXTS.help },
+        { onClick: () => setOpenMail(true), text: HEADER_BUTTONS_TEXTS.mail },
     ];
 
     const dialogs = [
         {
             open: openAttribute,
             setOpen: setOpenAttribute,
-            title: "Details of Attributes",
+            title: HEADER_DIALOGS_TITLES.attributes,
             children: (
                 <Table<NameAndDescription>
                     headers={["name", "description"]}
@@ -58,7 +61,7 @@ export default function Header({ bot }: HeaderProps) {
         {
             open: openData,
             setOpen: setOpenData,
-            title: "Sample of Data",
+            title: HEADER_DIALOGS_TITLES.data,
             children: (
                 <Table<generalObject<strOrNum>>
                     headers={botHeaders}
@@ -69,13 +72,13 @@ export default function Header({ bot }: HeaderProps) {
         {
             open: openHelp,
             setOpen: setOpenHelp,
-            title: "Help!",
+            title: HEADER_DIALOGS_TITLES.help,
             content: helpDescription ?? NO_HELP_DESCRIPTION,
         },
         {
             open: openMail,
             setOpen: setOpenMail,
-            title: "Leave us a comment",
+            title: HEADER_DIALOGS_TITLES.mail,
             children: (
                 <Link href={`mailto:${mailInfo}`}>
                     {mailInfo ?? NO_MAIL_PROVIDED}
