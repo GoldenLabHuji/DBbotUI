@@ -17,7 +17,7 @@ import {
     SAMPLE_BUTTON_TEXT,
     NO_HELP_DESCRIPTION,
 } from "@/app/general/constants";
-import { getTableInfo } from "@/app/general/utils";
+import { getTableInfo, convertToCSV, downloadCSV } from "@/app/general/utils";
 import _ from "lodash";
 
 export default function Header({ bot }: HeaderProps) {
@@ -34,10 +34,16 @@ export default function Header({ bot }: HeaderProps) {
         description: column._description,
     }));
 
+    const csv = convertToCSV(rows);
+
     const buttons = [
         { onClick: () => setOpenAttribute(true), text: ATTRIBUTES_BUTTON_TEXT },
         { onClick: () => setOpenData(true), text: SAMPLE_BUTTON_TEXT },
         { onClick: () => setOpenHelp(true), text: "Help!" },
+        {
+            onClick: () => downloadCSV(csv, "data.csv"),
+            text: "Download Full Data", // I know to move it to resource, need to merge another PR first
+        },
     ];
 
     const dialogs = [
