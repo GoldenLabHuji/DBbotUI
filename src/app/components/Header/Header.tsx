@@ -19,6 +19,7 @@ import {
     HEADER_DIALOGS_TITLES,
 } from "@/app/general/constants";
 import { getTableInfo } from "@/app/general/utils";
+import _ from "lodash";
 
 export default function Header({ bot }: HeaderProps) {
     const [openAttribute, setOpenAttribute] = useState<boolean>(false);
@@ -29,7 +30,7 @@ export default function Header({ bot }: HeaderProps) {
     const helpDescription = bot?._details.helpDescription;
     const mailInfo = bot?._details.mailInfo;
     const { botHeaders, botColumns, rows } = getTableInfo(bot);
-    const sampleRows = rows.slice(0, SAMPLE_SIZE);
+    const sampleRows = _.sampleSize(rows, SAMPLE_SIZE);
 
     const attributesRows = botColumns?.map((column) => ({
         name: column.displayName,
