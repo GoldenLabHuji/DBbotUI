@@ -12,12 +12,20 @@ export const styles = {
     },
     button: {
         width: "22%",
-        height: "80%",
-        fontSize: "14px",
+        height: "90%",
+        fontSize: "11px",
         borderRadius: "15px",
-        margin: "5px",
+        margin: "3px",
     },
     buttonsContainer: {
         width: "30%",
+        height: "90%",
+    },
+    rightAlign: {
+        textAlign: "right",
+        width: "36%",
+    },
+    rightButton: {
+        width: "18%",
     },
 };

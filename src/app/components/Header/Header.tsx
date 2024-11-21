@@ -4,7 +4,7 @@ import { styles } from "./Header.style";
 import { Box, Typography, Link } from "@mui/material";
 import Table from "@/app/components/Table";
 import Dialog from "@/app/components/Dialog";
-import CustomButton from "@/app/components/CustomButton";
+import ButtonGroup from "@/app/components/ButtonGroup";
 import {
     HeaderProps,
     NameAndDescription,
@@ -39,18 +39,20 @@ export default function Header({ bot }: HeaderProps) {
 
     const csv = convertToCSV(rows);
 
-    const buttons = [
+    const dataButtons = [
         {
             onClick: () => setOpenAttribute(true),
             text: HEADER_BUTTONS_TEXTS.attributes,
         },
         { onClick: () => setOpenData(true), text: HEADER_BUTTONS_TEXTS.data },
-        { onClick: () => setOpenHelp(true), text: HEADER_BUTTONS_TEXTS.help },
-        { onClick: () => setOpenMail(true), text: HEADER_BUTTONS_TEXTS.mail },
         {
             onClick: () => downloadCSV(csv, "data.csv"),
             text: HEADER_BUTTONS_TEXTS.download,
         },
+    ];
+    const helpButtons = [
+        { onClick: () => setOpenHelp(true), text: HEADER_BUTTONS_TEXTS.help },
+        { onClick: () => setOpenMail(true), text: HEADER_BUTTONS_TEXTS.mail },
     ];
 
     const dialogs = [
@@ -96,16 +98,17 @@ export default function Header({ bot }: HeaderProps) {
 
     return (
         <Box component="header" sx={styles.box}>
-            <Box component="div" sx={styles.buttonsContainer}>
-                {buttons.map((button, index) => (
-                    <CustomButton key={index} sx={styles.button} {...button} />
-                ))}
-            </Box>
+            <ButtonGroup buttonList={dataButtons} />
             <Box component="div" sx={styles.typContainer}>
                 <Typography variant="h4" component="h1">
                     {bot?._details.name as string}
                 </Typography>
             </Box>
+            <ButtonGroup
+                buttonList={helpButtons}
+                containerStyle={styles.rightAlign}
+                buttonStyle={styles.rightButton}
+            />
             {dialogs.map((dialog, index) => (
                 <Dialog
                     key={index}
