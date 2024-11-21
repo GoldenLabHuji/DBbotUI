@@ -10,6 +10,7 @@ export const HEADER_BUTTONS_TEXTS = {
     data: "Display Data Sample",
     help: "Help!",
     mail: "Leave us a comment",
+    download: "Download Full Data",
 };
 export const HEADER_DIALOGS_TITLES = {
     attributes: "Details of Attributes",
@@ -17,4 +18,3 @@ export const HEADER_DIALOGS_TITLES = {
     help: "Help!",
     mail: "Leave us a comment",
 };
-

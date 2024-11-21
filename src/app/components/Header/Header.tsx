@@ -18,7 +18,7 @@ import {
     NO_MAIL_PROVIDED,
     HEADER_DIALOGS_TITLES,
 } from "@/app/general/constants";
-import { getTableInfo } from "@/app/general/utils";
+import { getTableInfo, convertToCSV, downloadCSV } from "@/app/general/utils";
 import _ from "lodash";
 
 export default function Header({ bot }: HeaderProps) {
@@ -37,6 +37,8 @@ export default function Header({ bot }: HeaderProps) {
         description: column._description,
     }));
 
+    const csv = convertToCSV(rows);
+
     const buttons = [
         {
             onClick: () => setOpenAttribute(true),
@@ -45,6 +47,10 @@ export default function Header({ bot }: HeaderProps) {
         { onClick: () => setOpenData(true), text: HEADER_BUTTONS_TEXTS.data },
         { onClick: () => setOpenHelp(true), text: HEADER_BUTTONS_TEXTS.help },
         { onClick: () => setOpenMail(true), text: HEADER_BUTTONS_TEXTS.mail },
+        {
+            onClick: () => downloadCSV(csv, "data.csv"),
+            text: HEADER_BUTTONS_TEXTS.download,
+        },
     ];
 
     const dialogs = [
