@@ -4,5 +4,6 @@ export const styles = {
         backgroundColor: "background.default",
         width: "500px",
         alignSelf: "center",
+        marginBottom: 3,
     },
 };

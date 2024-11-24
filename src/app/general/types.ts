@@ -22,19 +22,12 @@ export enum TypeOfQuestion {
     INTRO = "intro",
 }
 
-export type currentMsgType = {
-    state: Message[];
-    setState: Dispatch<SetStateAction<Message[]>>;
+type State<T> = {
+    state: T;
+    setState: Dispatch<SetStateAction<T>>;
 };
 
-export type currentQIndexType = {
-    state: number;
-    setState: Dispatch<SetStateAction<number>>;
-};
-
-export type strParamType = {
-    state: boolean;
-    setState: Dispatch<SetStateAction<boolean>>;
-};
-
+export type currentMsgType = State<Message[]>;
+export type currentQIndexType = State<number>;
+export type strParamType = State<boolean>;
 export type strOrNum = string | number;

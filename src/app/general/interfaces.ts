@@ -144,3 +144,13 @@ export interface TableProps<T> {
     rows: T[];
     headers: string[];
 }
+
+export interface ButtonList extends TextProp {
+    onClick: () => void;
+}
+
+export interface ButtonGroupProps {
+    buttonList: ButtonList[];
+    buttonStyle?: generalObject<string>;
+    containerStyle?: generalObject<string>;
+}
