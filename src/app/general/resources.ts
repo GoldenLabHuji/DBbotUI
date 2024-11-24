@@ -1,5 +1,5 @@
 import { Message, MessageSection, Bot } from "@/app/general/interfaces";
-import { Sender, TypeOfQuestion } from "@/app/general/types";
+import { Sender, TypeOfQuestion, DataType } from "@/app/general/types";
 import { convertTextToMessage } from "@/app/general/utils";
 import { NO_RESULTS_FOUND } from "@/app/general/constants";
 
@@ -101,17 +101,31 @@ export const botFunctionParamsMessages = (
     bot: Bot,
     currentParam: string
 ): Message[] => {
-    const operators = bot?._data.columns.filter(
+    const column = bot?._data.columns.filter(
         (col) => col._id === currentParam
-    )[0]?.operatorsArray;
+    )[0];
+    const operators = column?.operatorsArray;
+    const columnType = column?.dataType;
+    const rows = column?.rows;
 
     const chosenOperator = operators[bot.currentOperatorIndex];
     const params = chosenOperator.params;
 
+    const isFactor = columnType === DataType.FACTOR;
+    const factorOptions = Array.from(new Set(rows));
+    const factorOptionsMessage = `The options for this factor attribute are: ${factorOptions?.join(
+        ", "
+    )}`;
+    const extraMessage = isFactor ? factorOptionsMessage : "";
+
     const messages: Message[] = params.map((prm, index) => {
         return {
             id: index,
-            text: prm?.message ?? `Enter value for parameter ${prm?.name}:`,
+            text:
+                (prm?.message ?? `Enter value for parameter ${prm?.name}:`) +
+                "\n" +
+                "\n" +
+                extraMessage,
             sender: Sender.BOT,
             typeOfQuestion: TypeOfQuestion.FUNCTION_PARAMS,
         };
