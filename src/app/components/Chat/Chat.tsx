@@ -47,12 +47,14 @@ export default function Chat({ bot }: ChatProps) {
 
                 const pathArray = bot?.filePath.split("/");
                 const path = pathArray.pop();
+                const nullValues = bot?.nullValues;
 
                 const response = await fetch("/api/root", {
                     method: "POST",
                     body: JSON.stringify({
                         queryParams,
                         filePath: path,
+                        nullValues,
                     }),
                 });
                 if (!response.ok) {
