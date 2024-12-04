@@ -11,13 +11,7 @@ import {
     generalObject,
 } from "@/app/general/interfaces";
 import { strOrNum } from "@/app/general/types";
-import {
-    SAMPLE_SIZE,
-    HEADER_BUTTONS_TEXTS,
-    NO_HELP_DESCRIPTION,
-    NO_MAIL_PROVIDED,
-    HEADER_DIALOGS_TITLES,
-} from "@/app/general/constants";
+import { HEADER_TEXTS } from "@/app/general/constants";
 import { getTableInfo, convertToCSV, downloadCSV } from "@/app/general/utils";
 import _ from "lodash";
 
@@ -30,7 +24,7 @@ export default function Header({ bot }: HeaderProps) {
     const helpDescription = bot?._details.helpDescription;
     const mailInfo = bot?._details.mailInfo;
     const { botHeaders, botColumns, rows } = getTableInfo(bot);
-    const sampleRows = _.sampleSize(rows, SAMPLE_SIZE);
+    const sampleRows = _.sampleSize(rows, HEADER_TEXTS.general.sampleSize);
 
     const attributesRows = botColumns?.map((column) => ({
         name: column.displayName,
@@ -42,24 +36,25 @@ export default function Header({ bot }: HeaderProps) {
     const dataButtons = [
         {
             onClick: () => setOpenAttribute(true),
-            text: HEADER_BUTTONS_TEXTS.attributes,
+            text: HEADER_TEXTS.buttons.attributes,
         },
-        { onClick: () => setOpenData(true), text: HEADER_BUTTONS_TEXTS.data },
+        { onClick: () => setOpenData(true), text: HEADER_TEXTS.buttons.data },
         {
             onClick: () => downloadCSV(csv, "data.csv"),
-            text: HEADER_BUTTONS_TEXTS.download,
+            text: HEADER_TEXTS.buttons.download,
         },
     ];
+
     const helpButtons = [
-        { onClick: () => setOpenHelp(true), text: HEADER_BUTTONS_TEXTS.help },
-        { onClick: () => setOpenMail(true), text: HEADER_BUTTONS_TEXTS.mail },
+        { onClick: () => setOpenHelp(true), text: HEADER_TEXTS.buttons.help },
+        { onClick: () => setOpenMail(true), text: HEADER_TEXTS.buttons.mail },
     ];
 
     const dialogs = [
         {
             open: openAttribute,
             setOpen: setOpenAttribute,
-            title: HEADER_DIALOGS_TITLES.attributes,
+            title: HEADER_TEXTS.dialogs.attributes,
             children: (
                 <Table<NameAndDescription>
                     headers={["name", "description"]}
@@ -70,7 +65,7 @@ export default function Header({ bot }: HeaderProps) {
         {
             open: openData,
             setOpen: setOpenData,
-            title: HEADER_DIALOGS_TITLES.data,
+            title: HEADER_TEXTS.dialogs.data,
             children: (
                 <Table<generalObject<strOrNum>>
                     headers={botHeaders}
@@ -81,16 +76,16 @@ export default function Header({ bot }: HeaderProps) {
         {
             open: openHelp,
             setOpen: setOpenHelp,
-            title: HEADER_DIALOGS_TITLES.help,
-            content: helpDescription ?? NO_HELP_DESCRIPTION,
+            title: HEADER_TEXTS.dialogs.help,
+            content: helpDescription ?? HEADER_TEXTS.general.noHelpDescription,
         },
         {
             open: openMail,
             setOpen: setOpenMail,
-            title: HEADER_DIALOGS_TITLES.mail,
+            title: HEADER_TEXTS.dialogs.mail,
             children: (
                 <Link href={`mailto:${mailInfo}`}>
-                    {mailInfo ?? NO_MAIL_PROVIDED}
+                    {mailInfo ?? HEADER_TEXTS.general.noMailProvided}
                 </Link>
             ),
         },

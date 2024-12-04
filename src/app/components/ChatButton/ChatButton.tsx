@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import CustomButton from "@/app/components/CustomButton";
 import SendIcon from "@mui/icons-material/Send";
 import { styles } from "./ChatButton.style";
-import { SEND } from "@/app/general/constants";
+import { GENERAL_BUTTONS_TEXTS } from "@/app/general/constants";
 
 export default function ChatButton() {
     return (
@@ -12,7 +12,7 @@ export default function ChatButton() {
                 sx={styles.button}
                 endIcon={<SendIcon />}
                 type="submit"
-                text={SEND}
+                text={GENERAL_BUTTONS_TEXTS.send}
             />
         </Grid>
     );

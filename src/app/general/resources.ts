@@ -1,7 +1,7 @@
 import { Message, MessageSection, Bot } from "@/app/general/interfaces";
 import { Sender, TypeOfQuestion, DataType } from "@/app/general/types";
 import { convertTextToMessage } from "@/app/general/utils";
-import { NO_RESULTS_FOUND } from "@/app/general/constants";
+import { RESOURCES_TEXTS } from "@/app/general/constants";
 
 export const botMessages = (bot: Bot): Message[] => {
     const headers = bot?._data.headers || [];
@@ -28,7 +28,7 @@ export const botMessages = (bot: Bot): Message[] => {
             
 ${headersString}
 
-Which property would you like to start with?`,
+${RESOURCES_TEXTS.propertyMessage}`,
             sender: Sender.BOT,
             typeOfQuestion: TypeOfQuestion.PARAMETER,
             answerOptions: Array.from(
@@ -113,16 +113,17 @@ export const botFunctionParamsMessages = (
 
     const isFactor = columnType === DataType.FACTOR;
     const factorOptions = Array.from(new Set(rows));
-    const factorOptionsMessage = `The options for this factor attribute are: ${factorOptions?.join(
-        ", "
-    )}`;
+    const factorOptionsMessage = `${
+        RESOURCES_TEXTS.factorOptions
+    } ${factorOptions?.join(", ")}`;
     const extraMessage = isFactor ? factorOptionsMessage : "";
 
     const messages: Message[] = params.map((prm, index) => {
         return {
             id: index,
             text:
-                (prm?.message ?? `Enter value for parameter ${prm?.name}:`) +
+                (prm?.message ??
+                    `${RESOURCES_TEXTS.paramMessageDefault} ${prm?.name}`) +
                 "\n" +
                 "\n" +
                 extraMessage,
@@ -152,10 +153,10 @@ export const botFunctionParamsMessages = (
 export const botAddMessages: Message[] = [
     {
         id: 0,
-        text: `Do you want to add another parameter?
+        text: `${RESOURCES_TEXTS.addParameter}
     
-    1. Yes
-    2. No`,
+    ${RESOURCES_TEXTS.yesOption}
+    ${RESOURCES_TEXTS.noOption}`,
         sender: Sender.BOT,
         typeOfQuestion: TypeOfQuestion.ADD,
         answerOptions: [1, 2],
@@ -176,7 +177,7 @@ export const botRestartMessages = (bot: Bot): Message[] => {
         ...restartSlotArray,
         {
             id: 0,
-            text: `To add another parameter, I will go through the same process as before.
+            text: `${RESOURCES_TEXTS.restartMessage}
 
 ${bot?._messages.customMessages.continueMessage}`,
             sender: Sender.BOT,
@@ -202,7 +203,7 @@ export const resultMsg = (bot: Bot, foundResults: boolean): Message[] => {
             id: 0,
             text: foundResults
                 ? bot?._messages?.customMessages.resultMessage
-                : NO_RESULTS_FOUND,
+                : RESOURCES_TEXTS.noResultsFound,
             sender: Sender.BOT,
             typeOfQuestion: TypeOfQuestion.RESULT,
         },
@@ -218,42 +219,7 @@ export const defaultMsgSection = [
 
 export const emptyMessage: Message = {
     id: 0,
-    text: "empty message",
+    text: RESOURCES_TEXTS.emptyMessage,
     sender: Sender.BOT,
     typeOfQuestion: TypeOfQuestion.FUNCTION_PARAMS,
-};
-
-export const colorCodes = {
-    blue: {
-        dark: "primary.main",
-        light: "primary.light",
-    },
-    green: {
-        dark: "#006400",
-        light: "#90EE90",
-    },
-    red: {
-        dark: "#800000",
-        light: "#FFB6C1",
-    },
-    yellow: {
-        dark: "#FFD700",
-        light: "#FFFFE0",
-    },
-    purple: {
-        dark: "secondary.main",
-        light: "secondary.light",
-    },
-    orange: {
-        dark: "#FF8C00",
-        light: "#FFA500",
-    },
-    black: {
-        dark: "#000000",
-        light: "#696969",
-    },
-    white: {
-        dark: "#D3D3D3",
-        light: "#FFFFFF",
-    },
 };
