@@ -39,6 +39,12 @@ export interface Bot {
     currentOperatorIndex: number;
     operatorsFiles: BorOperatorsFiles;
     colors: Colors;
+    nullValues: BotNullValues;
+}
+
+export interface BotNullValues {
+    nullValues: any[];
+    isFilterIncludesNull: boolean;
 }
 
 export interface Colors {
