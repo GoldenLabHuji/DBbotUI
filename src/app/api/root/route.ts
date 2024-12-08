@@ -1,4 +1,4 @@
-import { Attribute } from "@/app/general/interfaces";
+import { Attribute, BotNullValues } from "@/app/general/interfaces";
 import { getOperator } from "@/app/general/utils";
 import { strOrNum } from "@/app/general/types";
 import { NextRequest, NextResponse } from "next/server";
@@ -10,12 +10,17 @@ export async function POST(request: NextRequest) {
     const req = await request.json();
     const attributes = req.queryParams as Attribute[];
     const fileName = req.filePath as string;
+    const nullValues = req.nullValues as BotNullValues;
     const filePath = path.join(process.cwd(), "src/app/data", fileName);
-    const rows = await filterCSV(filePath, attributes);
+    const rows = await filterCSV(filePath, attributes, nullValues);
     return NextResponse.json(rows);
 }
 
-async function filterCSV(filePath: string, attributes: Attribute[]) {
+async function filterCSV(
+    filePath: string,
+    attributes: Attribute[],
+    nullValues: BotNullValues
+) {
     return new Promise<any[]>((resolve, reject) => {
         const operators = attributes.map(
             (query) => getOperator(query.operator) as any
@@ -24,7 +29,7 @@ async function filterCSV(filePath: string, attributes: Attribute[]) {
         fs.createReadStream(filePath)
             .pipe(csvParser())
             .on("data", (row: any) => {
-                if (isRowRequired(attributes, operators, row)) {
+                if (isRowRequired(attributes, operators, row, nullValues)) {
                     rows.push(row);
                 }
             })
@@ -40,17 +45,22 @@ async function filterCSV(filePath: string, attributes: Attribute[]) {
 function isRowRequired(
     attributes: Attribute[],
     operators: any[],
-    row: any
+    row: any,
+    nullValues: BotNullValues
 ): boolean {
     let isRequired: boolean = true;
     const duplicates = findDuplicates(attributes, "name");
+    const { isFilterIncludesNull, nullValues: nullValuesArray } = nullValues;
 
     if (duplicates.length > 0) {
         const notDuplicatesAttributes = attributes.filter(
             (attribute) => !duplicates.includes(attribute)
         );
         const isRequiredNotDuplicates = notDuplicatesAttributes.every(
-            (query, index) => operators[index](row[query.name], ...query.params)
+            (query, index) =>
+                operators[index](row[query.name], ...query.params) ||
+                (isFilterIncludesNull &&
+                    nullValuesArray.includes(row[query.name]))
         );
         const namesOfDuplicates = duplicates.map((query) => query.name);
         const duplicatesAttributes = [...new Set(namesOfDuplicates)];
@@ -58,8 +68,11 @@ function isRowRequired(
             const attributeOfTheName = attributes.filter(
                 (attribute) => attribute.name === name
             );
-            const isRowRequired = attributeOfTheName.some((query, index) =>
-                operators[index](row[query.name], ...query.params)
+            const isRowRequired = attributeOfTheName.some(
+                (query, index) =>
+                    operators[index](row[query.name], ...query.params) ||
+                    (isFilterIncludesNull &&
+                        nullValuesArray.includes(row[query.name]))
             );
             return isRowRequired;
         });
@@ -69,8 +82,11 @@ function isRowRequired(
 
         isRequired = isRequiredNotDuplicates && isRequiredDuplicates;
     } else {
-        isRequired = attributes.every((query, index) =>
-            operators[index](row[query.name], ...query.params)
+        isRequired = attributes.every(
+            (query, index) =>
+                operators[index](row[query.name], ...query.params) ||
+                (isFilterIncludesNull &&
+                    nullValuesArray.includes(row[query.name]))
         );
     }
 
