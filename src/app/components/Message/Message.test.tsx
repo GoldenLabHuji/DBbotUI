@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Message from "@/app/components/Message";
 import { Colors, Message as IMessage } from "@/app/general/interfaces";
-import { colorCodes } from "@/app/general/resources";
+import { colorCodes } from "@/app/general/constants";
 import { TypeOfQuestion, Sender } from "@/app/general/types";
 
 // Mock props

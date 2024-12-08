@@ -3,7 +3,7 @@ import { styles } from "@/app/components/Message/Message.style";
 import { MessageProps } from "@/app/general/interfaces";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import PersonIcon from "@mui/icons-material/Person";
-import { colorCodes } from "@/app/general/resources";
+import { colorCodes } from "@/app/general/constants";
 
 export default function Message({ message, colors }: MessageProps) {
     const isBot = message?.sender === "bot";
