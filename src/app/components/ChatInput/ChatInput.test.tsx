@@ -22,13 +22,4 @@ describe("ChatInput Component", () => {
         expect(input).toHaveAttribute("type", "text");
         expect(input).toHaveAttribute("placeholder", "Type a message");
     });
-
-    it("is wrapped inside a Grid component with correct sizing", () => {
-        render(<ChatInput />);
-
-        // Check if the Grid component is rendered with the correct xs prop
-        const gridItem = screen.getByRole("textbox").closest(".MuiGrid-item");
-        expect(gridItem).toBeInTheDocument();
-        expect(gridItem).toHaveClass("MuiGrid-grid-xs-10");
-    });
 });

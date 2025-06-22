@@ -45,18 +45,6 @@ export default function Header({ bot }: HeaderProps) {
 
     const csv = convertToCSV(rows);
 
-    const dataButtons = [
-        {
-            onClick: () => setOpenAttribute(true),
-            text: HEADER_TEXTS.buttons.attributes,
-        },
-        { onClick: () => setOpenData(true), text: HEADER_TEXTS.buttons.data },
-        {
-            onClick: () => downloadCSV(csv, "data.csv"),
-            text: HEADER_TEXTS.buttons.download,
-        },
-    ];
-
     const dialogs = [
         {
             open: openAttribute,
@@ -102,7 +90,7 @@ export default function Header({ bot }: HeaderProps) {
         <Box sx={styles.box}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={styles.title}>
+                    <Typography variant="h6" component="h6" sx={styles.title}>
                         {bot?._details.name as string}
                     </Typography>
                     <Box sx={styles.mobileMode}>

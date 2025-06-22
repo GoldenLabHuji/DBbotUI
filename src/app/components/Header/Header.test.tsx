@@ -17,7 +17,6 @@ describe("Header Component", () => {
 
     it("renders the correct typography element", () => {
         render(<Header bot={botMock} />);
-
         // Check if Typography is rendered as an h1
         const typography = screen.getByRole("heading", { level: 1 });
         expect(typography).toBeInTheDocument();
