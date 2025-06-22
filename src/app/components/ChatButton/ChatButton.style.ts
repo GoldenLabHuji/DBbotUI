@@ -1,3 +1,4 @@
 export const styles = {
-    button: { width: "120%" },
+    button: { color: "primary.main" },
+
 };

@@ -1,10 +1,15 @@
 "use client";
 import { useState } from "react";
 import { styles } from "./Header.style";
-import { Box, Typography, Link } from "@mui/material";
+import { Box, Typography, Link, IconButton, AppBar, Toolbar, Menu, MenuItem, Tooltip } from "@mui/material";
 import Table from "@/app/components/Table";
 import Dialog from "@/app/components/Dialog";
-import ButtonGroup from "@/app/components/ButtonGroup";
+import MenuIcon from '@mui/icons-material/Menu';
+import TextSnippetIcon from '@mui/icons-material/TextSnippetTwoTone';
+import DownloadIcon from '@mui/icons-material/DownloadTwoTone';
+import DatasetIcon from '@mui/icons-material/DatasetTwoTone';
+import HelpIcon from '@mui/icons-material/HelpTwoTone';
+import EmailIcon from '@mui/icons-material/EmailTwoTone';
 import {
     HeaderProps,
     NameAndDescription,
@@ -20,7 +25,14 @@ export default function Header({ bot }: HeaderProps) {
     const [openData, setOpenData] = useState<boolean>(false);
     const [openHelp, setOpenHelp] = useState<boolean>(false);
     const [openMail, setOpenMail] = useState<boolean>(false);
+    const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
+    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElNav(event.currentTarget);
+    };
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
     const helpDescription = bot?._details.helpDescription;
     const mailInfo = bot?._details.mailInfo;
     const { botHeaders, botColumns, rows } = getTableInfo(bot);
@@ -43,11 +55,6 @@ export default function Header({ bot }: HeaderProps) {
             onClick: () => downloadCSV(csv, "data.csv"),
             text: HEADER_TEXTS.buttons.download,
         },
-    ];
-
-    const helpButtons = [
-        { onClick: () => setOpenHelp(true), text: HEADER_TEXTS.buttons.help },
-        { onClick: () => setOpenMail(true), text: HEADER_TEXTS.buttons.mail },
     ];
 
     const dialogs = [
@@ -92,18 +99,95 @@ export default function Header({ bot }: HeaderProps) {
     ];
 
     return (
-        <Box component="header" sx={styles.box}>
-            <ButtonGroup buttonList={dataButtons} />
-            <Box component="div" sx={styles.typContainer}>
-                <Typography variant="h4" component="h1">
-                    {bot?._details.name as string}
-                </Typography>
-            </Box>
-            <ButtonGroup
-                buttonList={helpButtons}
-                containerStyle={styles.rightAlign}
-                buttonStyle={styles.rightButton}
-            />
+        <Box sx={styles.box}>
+            <AppBar position="static">
+                <Toolbar>
+                    <Typography variant="h6" component="div" sx={styles.title}>
+                        {bot?._details.name as string}
+                    </Typography>
+                    <Box sx={styles.mobileMode}>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenNavMenu}
+                            color="inherit"
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorElNav}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            open={Boolean(anchorElNav)}
+                            onClose={handleCloseNavMenu}
+                            sx={styles.mobileMenuIcon}
+                        >
+                            <MenuItem key={1} onClick={() => setOpenAttribute(true)}>
+                                <Typography textAlign="center">
+                                    {HEADER_TEXTS.buttons.attributes}
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem key={2} onClick={() => setOpenData(true)}>
+                                <Typography textAlign="center">
+                                    {HEADER_TEXTS.buttons.data}
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem key={3} onClick={() => downloadCSV(csv, "data.csv")}>
+                                <Typography textAlign="center">
+                                    {HEADER_TEXTS.buttons.download}
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem key={4} onClick={() => setOpenHelp(true)}>
+                                <Typography textAlign="center">
+                                    {HEADER_TEXTS.buttons.help}
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem key={5} onClick={() => setOpenMail(true)}>
+                                <Typography textAlign="center">
+                                    {HEADER_TEXTS.buttons.mail}
+                                </Typography>
+                            </MenuItem>
+                        </Menu>
+                    </Box>
+                    <Box sx={styles.desktopMode}>
+                        <Tooltip title={HEADER_TEXTS.buttons.attributes}>
+                            <IconButton key={1} onClick={() => setOpenAttribute(true)}>
+                                <TextSnippetIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title={HEADER_TEXTS.buttons.data}>
+                            <IconButton key={2} onClick={() => setOpenData(true)}>
+                                <DatasetIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title={HEADER_TEXTS.buttons.download}>
+                            <IconButton key={3} onClick={() => downloadCSV(csv, "data.csv")}>
+                                <DownloadIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title={HEADER_TEXTS.buttons.help}>
+                            <IconButton key={4} onClick={() => setOpenHelp(true)}>
+                                <HelpIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title={HEADER_TEXTS.buttons.mail}>
+                            <IconButton key={5} onClick={() => setOpenMail(true)}>
+                                <EmailIcon />
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
+                </Toolbar>
+            </AppBar>
             {dialogs.map((dialog, index) => (
                 <Dialog
                     key={index}

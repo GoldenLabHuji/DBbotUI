@@ -1,9 +1,14 @@
 export const styles = {
+    title: { flexGrow: 1 },
+    mobileMode: { display: { xs: 'flex', md: 'none' } },
+    desktopMode: { display: { xs: 'none', md: 'flex' } },
+    mobileMenuIcon: { display: { xs: 'block', md: 'none' } },
+    menuButton: { mr: 2 },
     box: {
-        display: "flex",
-        backgroundColor: "#f8f9fa",
-        padding: 2,
-        color: "black",
+        // display: "flex",
+        // backgroundColor: "#f8f9fa",
+        // padding: 2,
+        // color: "black",
     },
     typContainer: {
         width: "34%",

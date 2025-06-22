@@ -14,9 +14,9 @@ import { styles } from "./Table.style";
 export default function Table<T>({ rows, headers }: TableProps<T>) {
     return (
         <TableContainer component={Paper}>
-            <MUITable sx={styles.table}>
+            <MUITable stickyHeader sx={styles.table}>
                 <TableHead>
-                    <TableRow>
+                    <TableRow sx={styles.tableHead}>
                         {headers.map((header, index) => (
                             <TableCell key={index}>{header}</TableCell>
                         ))}

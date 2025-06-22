@@ -21,6 +21,6 @@ describe("Header Component", () => {
         // Check if Typography is rendered as an h1
         const typography = screen.getByRole("heading", { level: 1 });
         expect(typography).toBeInTheDocument();
-        expect(typography.tagName).toBe("H1");
+        expect(typography.tagName).toBe("H6");
     });
 });
