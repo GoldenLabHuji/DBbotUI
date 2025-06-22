@@ -12,7 +12,6 @@ import useInput from "@/app/hooks/useInput";
 import useChat from "@/app/hooks/useChat";
 import useUpdateMsg from "@/app/hooks/useUpdateMsg";
 import useEndChat from "@/app/hooks/useEndChat";
-
 export default function ChatBox({ bot }: ChatBoxProps) {
     const [_, setIsQuerySubmit] = useRecoilState(isQuerySubmitAtom);
     const [__, setQueryParams] = useRecoilState(queryParamsAtom);
@@ -81,13 +80,11 @@ export default function ChatBox({ bot }: ChatBoxProps) {
     }, [currentMsg.state, isSubmit, endSection.state]);
 
     return (
-        <Box sx={styles.box}>
-            <Box component="form" onSubmit={handleSubmit}>
-                <Grid container spacing={2}>
-                    <ChatInput />
-                    <ChatButton />
-                </Grid>
-            </Box>
+        <Box component="form" onSubmit={handleSubmit} sx={styles.box}>
+            <Grid container spacing={1}>
+                <ChatInput />
+                <ChatButton />
+            </Grid>
         </Box>
     );
 }

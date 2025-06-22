@@ -1,12 +1,12 @@
 export const styles = {
     container: {
-        height: "88vh",
+        height: "86vh",
         display: "flex",
         flexDirection: "column",
         bgcolor: "grey.200",
     },
     secondContainer: {
-        width: "500px",
+        // width: "500px",
         alignSelf: "center",
         flexGrow: 1,
         overflow: "auto",
